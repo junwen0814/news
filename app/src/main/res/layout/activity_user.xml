@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.mmin18.widget.FlexLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.github.mmin18.widget.FlexLayout
+                android:id="@+id/user_activity_head_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                app:layout_height="30%">
+
+                <ImageView
+                    android:id="@+id/user_activity_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_login_img_back"
+                    app:layout_height="17%"
+                    app:layout_left="2%"
+                    app:layout_top="5%" />
+
+                <com.github.mmin18.widget.FlexLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_height="75%"
+                    app:layout_top="prev.bottom">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/user_activity_head_img"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/img_user_img"
+                        app:civ_border_color="#ffffff"
+                        app:civ_border_width="2dp"
+                        app:layout_centerY="50%"
+                        app:layout_left="5%" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="倾听者"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        app:layout_left="36%"
+                        app:layout_top="26%" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="22"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        app:layout_left="36%"
+                        app:layout_top="prev.bottom+5%" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_common_right"
+                        app:layout_centerY="50%"
+                        app:layout_left="90%" />
+                </com.github.mmin18.widget.FlexLayout>
+
+            </com.github.mmin18.widget.FlexLayout>
+
+            <com.github.mmin18.widget.FlexLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_top="prev.bottom">
+
+                <com.github.mmin18.widget.FlexLayout
+                    android:id="@+id/user_activity_collection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="18dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_user_collection"
+                        app:layout_centerY="50%" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的收藏"
+                        app:layout_centerY="50%"
+                        app:layout_left="prev.right+2%" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_common_right_gray"
+                        app:layout_centerY="50%"
+                        app:layout_left="95%" />
+                </com.github.mmin18.widget.FlexLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#eef0ef"
+                    app:layout_left="4%"
+                    app:layout_top="prev.bottom"
+                    app:layout_width="96%" />
+
+                <com.github.mmin18.widget.FlexLayout
+                    android:id="@+id/user_activity_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="18dp"
+                    app:layout_top="prev.bottom">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_user_comment"
+                        app:layout_centerY="50%" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的评论"
+                        app:layout_centerY="50%"
+                        app:layout_left="prev.right+2%" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_common_right_gray"
+                        app:layout_centerY="50%"
+                        app:layout_left="95%" />
+                </com.github.mmin18.widget.FlexLayout>
+
+            </com.github.mmin18.widget.FlexLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#eef0ef"
+                app:layout_left="4%"
+                app:layout_top="prev.bottom"
+                app:layout_width="96%" />
+
+            <com.github.mmin18.widget.FlexLayout
+                android:id="@+id/user_activity_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="18dp"
+                app:layout_top="prev.bottom">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_user_setting"
+                    app:layout_centerY="50%" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="系统设置"
+                    app:layout_centerY="50%"
+                    app:layout_left="prev.right+2%" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_common_right_gray"
+                    app:layout_centerY="50%"
+                    app:layout_left="95%" />
+            </com.github.mmin18.widget.FlexLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#eef0ef"
+                app:layout_left="4%"
+                app:layout_top="prev.bottom"
+                app:layout_width="96%" />
+
+            <com.github.mmin18.widget.FlexLayout
+                android:id="@+id/user_activity_exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f46a5d"
+                android:padding="18dp"
+                app:layout_top="prev.bottom">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="退出登录"
+                    android:textColor="@color/white"
+                    app:layout_centerY="50%" />
+
+            </com.github.mmin18.widget.FlexLayout>
+
+        </com.github.mmin18.widget.FlexLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

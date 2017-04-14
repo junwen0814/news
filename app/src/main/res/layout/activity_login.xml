@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            app:contentInsetStart="0dp">
+
+            <com.github.mmin18.widget.FlexLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/login_activity_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_login_img_back"
+                    app:layout_left="4%" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="登录"
+                    android:textColor="@color/white"
+                    app:layout_centerX="50%"
+                    app:layout_centerY="50%" />
+            </com.github.mmin18.widget.FlexLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.github.mmin18.widget.FlexLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_centerX="50%"
+            app:layout_top="20%"
+            app:layout_width="80%">
+
+            <EditText
+                android:id="@+id/login_activity_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/img_login_et_user"
+                android:drawablePadding="5dp"
+                android:hint="请输入用户名" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_centerX="50%"
+            app:layout_top="30%"
+            app:layout_width="80%">
+
+            <EditText
+                android:id="@+id/login_activity_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/img_login_et_pwd"
+                android:drawablePadding="5dp"
+                android:hint="请输入密码"
+                android:inputType="numberPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/login_activity_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否注册"
+            app:layout_left="prev.left"
+            app:layout_top="prev.bottom" />
+
+        <Button
+            android:id="@+id/login_activity_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#68b3ec"
+            android:text="登录"
+            android:textColor="@color/white"
+            app:layout_centerX="50%"
+            app:layout_top="55%"
+            app:layout_width="60%" />
+
+
+    </com.github.mmin18.widget.FlexLayout>
+
+</LinearLayout>

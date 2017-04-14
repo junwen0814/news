@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="news.news.com.news">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".Base.MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Ui.activity.SplashActivity"
+            android:theme="@style/MyMaterialTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Ui.activity.MainActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Ui.activity.LoginActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Ui.activity.UserActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Ui.activity.UserDetailActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <!-- Image Selector Entry -->
+        <activity
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
+
+        <activity
+            android:name=".Ui.activity.NewDetailActivity"
+            android:theme="@style/MyMaterialTheme"
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
+
+        </activity>
+    </application>
+
+</manifest>
