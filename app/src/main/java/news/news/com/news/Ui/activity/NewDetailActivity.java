@@ -2,7 +2,6 @@ package news.news.com.news.Ui.activity;
 
 import android.content.DialogInterface;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -20,7 +19,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.junwen.jlibrary.JKeyboardUtils;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import news.news.com.news.Base.BaseActivity;
 import news.news.com.news.Common.ContentSizeConstant;
 import news.news.com.news.Mvp.Model.NewsDetailModel;
@@ -138,47 +136,63 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_text_size:
-                Toast("文字大小");
-                String contentSize = SharedUtils.getInstance().getContentSize();
-                final String[] textList = {"特大号字", "大号字", "中号字", "小号字"};
-                int textIndex = 2;
-                if (!TextUtils.isEmpty(contentSize)) {
-                    for (int i = 0; i < textList.length; i++) {
-                        if (contentSize.equals(textList[i])) {
-                            textIndex = i;
-                            break;
-                        }
-                    }
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(NewDetailActivity.this);
-                builder.setTitle("正文字号");
-                builder.setSingleChoiceItems(new String[]{"特大号字", "大号字", "中号字", "小号字"}, textIndex, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (textList[which]) {
-                            case "特大号字":
-                                newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_EXTRA_LARGE);
-                                break;
-                            case "大号字":
-                                newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_LARGE_SIZE);
-                                break;
-                            case "中号字":
-                                newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_MEDIUM);
-                                break;
-                            case "小号字":
-                                newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_TRUMPET);
-                                break;
-                        }
-                        SharedUtils.getInstance().setContentSize(textList[which]);
-                        dialog.dismiss();
-                    }
-                });
-                builder.create().show();
+                //修改字体大小
+                changeTextSize();
                 break;
         }
         return false;
     }
 
+    /**
+     * 描述:修改字体大小
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/14 下午5:12
+     */
+    public void changeTextSize() {
+        String contentSize = SharedUtils.getInstance().getContentSize();
+        final String[] textList = {"特大号字", "大号字", "中号字", "小号字"};
+        int textIndex = 2;
+        if (!TextUtils.isEmpty(contentSize)) {
+            for (int i = 0; i < textList.length; i++) {
+                if (contentSize.equals(textList[i])) {
+                    textIndex = i;
+                    break;
+                }
+            }
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewDetailActivity.this);
+        builder.setTitle("正文字号");
+        builder.setSingleChoiceItems(new String[]{"特大号字", "大号字", "中号字", "小号字"}, textIndex, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (textList[which]) {
+                    case "特大号字":
+                        newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_EXTRA_LARGE);
+                        break;
+                    case "大号字":
+                        newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_LARGE_SIZE);
+                        break;
+                    case "中号字":
+                        newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_MEDIUM);
+                        break;
+                    case "小号字":
+                        newDetailActivityHtml.setTextSize(ContentSizeConstant.SIZE_TRUMPET);
+                        break;
+                }
+                SharedUtils.getInstance().setContentSize(textList[which]);
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    /**
+     * 描述:获取当前字体大小
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/14 下午5:12
+     */
     public int getContentSize() {
         String contentSize = SharedUtils.getInstance().getContentSize();
         int size = 0;
@@ -257,12 +271,5 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
