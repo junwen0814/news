@@ -14,26 +14,46 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:background="?attr/colorPrimaryDark"
+                    app:contentInsetStart="0dp">
+
+                    <com.github.mmin18.widget.FlexLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/user_activity_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_login_img_back"
+                            app:layout_left="2%" />
+
+                    </com.github.mmin18.widget.FlexLayout>
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.AppBarLayout>
+
+
             <com.github.mmin18.widget.FlexLayout
                 android:id="@+id/user_activity_head_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
-                app:layout_height="30%">
+                app:layout_height="40%"
+                app:layout_top="prev.bottom">
 
-                <ImageView
-                    android:id="@+id/user_activity_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_login_img_back"
-                    app:layout_height="17%"
-                    app:layout_left="2%"
-                    app:layout_top="5%" />
 
                 <com.github.mmin18.widget.FlexLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_height="75%"
+                    android:layout_height="match_parent"
                     app:layout_top="prev.bottom">
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,6 +63,7 @@
                         android:src="@drawable/img_user_img"
                         app:civ_border_color="#ffffff"
                         app:civ_border_width="2dp"
+                        app:layout_centerX="50%"
                         app:layout_centerY="50%"
                         app:layout_left="5%" />
 
@@ -52,17 +73,9 @@
                         android:text="倾听者"
                         android:textColor="@color/white"
                         android:textSize="22sp"
+                        app:layout_centerX="50%"
                         app:layout_left="36%"
-                        app:layout_top="26%" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="22"
-                        android:textColor="@color/white"
-                        android:textSize="22sp"
-                        app:layout_left="36%"
-                        app:layout_top="prev.bottom+5%" />
+                        app:layout_top="prev.bottom+10%" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -196,7 +209,7 @@
                 android:id="@+id/user_activity_exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#f46a5d"
+                android:background="@color/white"
                 android:padding="18dp"
                 app:layout_top="prev.bottom">
 
@@ -206,7 +219,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="退出登录"
-                    android:textColor="@color/white"
                     app:layout_centerY="50%" />
 
             </com.github.mmin18.widget.FlexLayout>

@@ -12,7 +12,7 @@ import news.news.com.news.Mvp.Views.LoginView;
 @InjectViewState
 public class LoginPresenter extends MvpPresenter<LoginView> {
 
-    public void login(Editable username, Editable password, boolean checked) {
+    public void login(Editable username, Editable password, boolean isLogin) {
 
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             getViewState().onLoginFail(StrConstant.ERROR_NULL_USER_PASS);
@@ -20,11 +20,10 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
         }
         String user = username.toString();
         String pass = password.toString();
-        if (checked) {
-            //注册
-            userRegister(user, pass);
-        } else {
+        if (isLogin) {
             userLogin(user, pass);
+        } else {
+            userRegister(user, pass);
         }
     }
 
@@ -45,7 +44,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
      * 日期:17/4/9 下午5:19
      */
     private void userRegister(String username, String password) {
-        getViewState().onLoginSuccess("注册 ： user : " + username + "pass : " + password);
+        getViewState().onRegisterSuccess();
     }
 
 

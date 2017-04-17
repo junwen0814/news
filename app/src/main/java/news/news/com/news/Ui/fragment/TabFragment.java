@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -24,7 +25,6 @@ import news.news.com.news.Mvp.Views.TabView;
 import news.news.com.news.R;
 import news.news.com.news.Ui.activity.NewDetailActivity;
 import news.news.com.news.Ui.adapter.MainTab.MainTabAdapter;
-import news.news.com.news.Utils.DataUtils;
 
 public class TabFragment extends BaseFragment implements TabView, XRecyclerView.LoadingListener, MultiItemTypeAdapter.OnItemClickListener {
 
@@ -35,7 +35,11 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
     XRecyclerView mainTabFragmentXrecyclerView;
 
     private List<NewsModel> data = new ArrayList<>();
+
     private MainTabAdapter mainTabAdapter;
+
+    public static final String ARGUMENTS_COULUMNS = "columnsName";
+    private String columnsName;
 
     @Override
     public int getLayout() {
@@ -44,6 +48,7 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
 
     @Override
     protected void initView(View view) {
+        columnsName = getArguments().getString(ARGUMENTS_COULUMNS);
         mainTabFragmentXrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -55,7 +60,9 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
         mainTabFragmentXrecyclerView.setAdapter(animatorAdapter);
         mainTabFragmentXrecyclerView.setItemAnimator(new SlideInOutBottomItemAnimator(mainTabFragmentXrecyclerView));
         //请求数据
-        newsListReq();
+        if (!TextUtils.isEmpty(columnsName)) {
+            newsListReq(columnsName);
+        }
     }
 
     /**
@@ -63,12 +70,11 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
      * 作者:卜俊文
      * 邮箱:344176791@qq.com
      * 日期:17/4/12 下午8:40
+     *
+     * @param columnsName
      */
-    private void newsListReq() {
-        List<NewsModel> newsList = DataUtils.getNewsList();
-//        data.clear();
-        data.addAll(newsList);
-        mainTabAdapter.notifyDataSetChanged();
+    private void newsListReq(String columnsName) {
+        presenter.newsListByColumns(columnsName);
     }
 
     @Override
@@ -115,5 +121,17 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
     @Override
     public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
         return false;
+    }
+
+    /**
+     *描述:新闻列表返回
+     *作者:卜俊文
+     *邮箱:344176791@qq.com
+     *日期:17/4/17 下午10:26
+     */
+    @Override
+    public void onNewsListSuccess(List<NewsModel> newsList) {
+        data.addAll(newsList);
+        mainTabAdapter.notifyDataSetChanged();
     }
 }

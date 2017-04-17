@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.socks.library.KLog;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -35,11 +37,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import news.news.com.news.Base.BaseActivity;
 import news.news.com.news.Base.MyApp;
 import news.news.com.news.Common.event.UserHeadEvent;
+import news.news.com.news.Mvp.Model.Response.ColumnsModel;
+import news.news.com.news.Mvp.Model.Response.ColumnsResponseModel;
 import news.news.com.news.Mvp.Presenters.MainPresenter;
 import news.news.com.news.Mvp.Views.MainView;
 import news.news.com.news.R;
 import news.news.com.news.Ui.adapter.MainViewPagerAdapter;
 import news.news.com.news.Ui.fragment.TabFragment;
+import news.news.com.news.Ui.fragment.Ui.fragment.VideoFragment;
 
 public class MainActivity extends BaseActivity implements MainView, View.OnClickListener {
 
@@ -61,13 +66,12 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     @Bind(R.id.main_activity_user)
     CircleImageView mainActivityUser;
 
-    private String[] titles;
-
     private CommonNavigator commonNavigator;
 
     private List<Fragment> viewpager_list;
 
     private final int REQUEST_CODE = 0;
+    private List<ColumnsModel> lists;
 
     @Override
     public int getLayout() {
@@ -101,12 +105,25 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
      * 作者:卜俊文
      * 邮箱:344176791@qq.com
      * 日期:17/4/9 下午3:48
+     *
+     * @param lists
      */
-    private void initFragment() {
-        for (String title : titles) {
-            viewpager_list.add(new TabFragment());
+    private void initFragment(List<ColumnsModel> lists) {
+        Bundle bundle = null;
+        TabFragment videoFragment = null;
+        for (ColumnsModel item : lists) {
+            if ("视频".equals(item.getCname())) {
+                viewpager_list.add(new VideoFragment());
+            } else {
+                KLog.e("栏目 ：" + item.getCname());
+                videoFragment = new TabFragment();
+                bundle = new Bundle();
+                bundle.putString(TabFragment.ARGUMENTS_COULUMNS, item.getCname());
+                videoFragment.setArguments(bundle);
+                viewpager_list.add(videoFragment);
+            }
         }
-        mainViewpager.setOffscreenPageLimit(titles.length);
+        mainViewpager.setOffscreenPageLimit(lists.size());
         mainViewpager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), viewpager_list));
     }
 
@@ -117,10 +134,15 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
      * 日期:17/4/9 下午3:25
      */
     @Override
-    public void onCategoryResponse(String[] titles) {
-        this.titles = titles;
+    public void onCategorySuccess(ColumnsResponseModel columnsResponseModel) {
+        lists = columnsResponseModel.getLists();
         updateAdapter();
-        initFragment();
+        initFragment(lists);
+    }
+
+    @Override
+    public void onCategoryFail(String error) {
+        Toast(error);
     }
 
     /**
@@ -133,15 +155,15 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
-                return titles.length;
+                return lists.size();
             }
 
             @Override
             public IPagerTitleView getTitleView(Context context, final int i) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.GRAY);
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#68b3ec"));
-                colorTransitionPagerTitleView.setText(titles[i]);
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#b5b5b5"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#f16467"));
+                colorTransitionPagerTitleView.setText(lists.get(i).getCname());
                 colorTransitionPagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -155,7 +177,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.parseColor("#68b3ec"));
+                indicator.setColors(Color.parseColor("#f16467"));
                 indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
                 return indicator;
             }
@@ -194,5 +216,6 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
             mainActivityUser.setImageBitmap(BitmapFactory.decodeFile(userHeadEvent.getPath()));
         }
     }
+
 
 }

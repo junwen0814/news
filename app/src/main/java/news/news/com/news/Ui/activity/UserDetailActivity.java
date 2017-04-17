@@ -120,7 +120,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView, 
                 // “确定”按钮文字颜色
                 .btnTextColor(Color.BLUE)
                 // 使用沉浸式状态栏
-                .statusBarColor(Color.parseColor("#3F51B5"))
+                .statusBarColor(getResources().getColor(R.color.colorPrimary))
                 // 返回图标ResId
                 .backResId(R.drawable.img_login_img_back)
                 // 标题
@@ -128,7 +128,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView, 
                 // 标题文字颜色
                 .titleColor(Color.WHITE)
                 // TitleBar背景色
-                .titleBgColor(Color.parseColor("#3F51B5"))
+                .titleBgColor(getResources().getColor(R.color.colorPrimary))
                 // 裁剪大小。needCrop为true的时候配置
 //                        .cropSize(1, 1, 200, 200)
 //                        .needCrop(true)

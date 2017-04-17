@@ -3,6 +3,8 @@ package news.news.com.news.Api;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.io.IOException;
@@ -10,8 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 import news.news.com.news.Base.MyApp;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -29,24 +33,26 @@ import static android.content.ContentValues.TAG;
  */
 public class Api {
 
-    private static final String BASE_URL = "http://192.168.254.158:8080/"; //根地址
+    private static final String BASE_URL = "http://172.16.2.133:8088/sxuncloud/"; //根地址
 
-    private static final int DEFAULT_TIMEOUT = 10; //超时时间
+    public static final String PATH = "service?format=JSON";
+
+    private static final int DEFAULT_TIMEOUT = 5; //超时时间
 
     private static Api api;
 
     private final Retrofit retrofit;
 
     public Api() {
-//        Gson gson = new GsonBuilder()
-//                .setLenient()
-//                .create();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(initHttpClient())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))//异步IO请求
-                .addConverterFactory(GsonConverterFactory.create())//转换层
-//                .addConverterFactory(GsonConverterFactory.create(gson))//转换层
+//                .addConverterFactory(GsonConverterFactory.create())//转换层
+                .addConverterFactory(GsonConverterFactory.create(gson))//转换层
                 .build();
     }
 
@@ -139,6 +145,16 @@ public class Api {
      */
     public <T> T getRetrofit(Class<T> httpServiceClass) {
         return retrofit.create(httpServiceClass);
+    }
+
+    /**
+     * 描述:返回RequestBody
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 创建时间: 2016/12/15 15:19
+     */
+    public static RequestBody getRequestBody(String info) {
+        return RequestBody.create(MediaType.parse("application/octet-stream"), info.getBytes());
     }
 
     //Api使用示例

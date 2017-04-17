@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base" />
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -31,5 +32,11 @@
         <!--是否模糊-->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+
+    <style name="AppTheme.ActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionMenuTextColor">#fff</item>
+    </style>
+
 
 </resources>

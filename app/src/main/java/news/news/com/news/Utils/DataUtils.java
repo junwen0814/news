@@ -8,6 +8,7 @@ import java.util.Map;
 import news.news.com.news.Common.StrConstant;
 import news.news.com.news.Mvp.Model.NewsDetailModel;
 import news.news.com.news.Mvp.Model.NewsModel;
+import news.news.com.news.Mvp.Model.NewsVideoModel;
 
 /**
  * Created by junwen on 17/4/12.
@@ -166,5 +167,17 @@ public class DataUtils {
         newsDetailModel.setCollection("T".equals(collectioned) ? true : false);
         newsDetailModel.setHtml(html);
         return newsDetailModel;
+    }
+
+    public static List<NewsVideoModel> getNewsVideoModel() {
+        List<NewsVideoModel> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            NewsVideoModel newsDetailModel = new NewsVideoModel();
+            newsDetailModel.setVideoTitle("嫂子闭眼睛");
+            newsDetailModel.setThumb("");
+            newsDetailModel.setVideoUrl("http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4");
+            data.add(newsDetailModel);
+        }
+        return data;
     }
 }

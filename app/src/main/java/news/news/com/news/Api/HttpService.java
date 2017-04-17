@@ -1,7 +1,7 @@
 package news.news.com.news.Api;
 
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -13,8 +13,8 @@ import rx.Observable;
  */
 public interface HttpService {
 
-    @FormUrlEncoded
-    @POST("login")
-    Observable<Object> login(@Field("userName") String userName, @Field("passWord") String passWord);
+
+    @POST(Api.PATH)
+    Observable<Object> postRequest(@Body RequestBody requestBody);
 
 }

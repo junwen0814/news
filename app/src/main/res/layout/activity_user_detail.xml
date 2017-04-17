@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/img_login_img_back"
-                    app:layout_left="2%" />
+                    app:layout_left="1%" />
 
                 <TextView
                     android:layout_width="match_parent"

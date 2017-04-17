@@ -15,10 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:elevation="15dp"
             app:contentInsetStart="0dp"
             app:navigationIcon="@drawable/img_login_img_back"
-            android:elevation="15dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/AppTheme.ActionBar">
 
             <com.github.mmin18.widget.FlexLayout
                 android:layout_width="match_parent"

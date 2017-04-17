@@ -1,6 +1,7 @@
 
 package news.news.com.news.Base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -18,12 +19,16 @@ import qiu.niorgai.StatusBarCompat;
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
+
+    protected Context mContext;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
 //        MyActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        mContext = BaseActivity.this;
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary));
         initView();
         initData();
