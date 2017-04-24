@@ -39,17 +39,23 @@ import news.news.com.news.Base.MyApp;
 import news.news.com.news.Common.event.UserHeadEvent;
 import news.news.com.news.Mvp.Model.Response.ColumnsModel;
 import news.news.com.news.Mvp.Model.Response.ColumnsResponseModel;
+import news.news.com.news.Mvp.Presenters.LoginPresenter;
 import news.news.com.news.Mvp.Presenters.MainPresenter;
+import news.news.com.news.Mvp.Views.LoginView;
 import news.news.com.news.Mvp.Views.MainView;
 import news.news.com.news.R;
 import news.news.com.news.Ui.adapter.MainViewPagerAdapter;
 import news.news.com.news.Ui.fragment.TabFragment;
 import news.news.com.news.Ui.fragment.Ui.fragment.VideoFragment;
+import news.news.com.news.Utils.SharedUtils;
 
-public class MainActivity extends BaseActivity implements MainView, View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainView, LoginView, View.OnClickListener {
 
     @InjectPresenter
     MainPresenter presenter;
+
+    @InjectPresenter
+    LoginPresenter loginPresenter;
 
     @Bind(R.id.main_activity_toolbar)
     Toolbar mainActivityToolbar;
@@ -91,6 +97,11 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     @Override
     public void initData() {
         presenter.requestCategory(); //请求新闻列表
+        if (MyApp.isLogin()) {
+            String username = SharedUtils.getInstance().getUsername();
+            String password = SharedUtils.getInstance().getPassword();
+            loginPresenter.login(username, password, true);
+        }
     }
 
 
@@ -118,7 +129,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
                 KLog.e("栏目 ：" + item.getCname());
                 videoFragment = new TabFragment();
                 bundle = new Bundle();
-                bundle.putString(TabFragment.ARGUMENTS_COULUMNS, item.getCname());
+                bundle.putString(TabFragment.ARGUMENTS_CID, item.getCid());
                 videoFragment.setArguments(bundle);
                 viewpager_list.add(videoFragment);
             }
@@ -135,7 +146,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
      */
     @Override
     public void onCategorySuccess(ColumnsResponseModel columnsResponseModel) {
-        lists = columnsResponseModel.getLists();
+        lists = columnsResponseModel.getList();
         updateAdapter();
         initFragment(lists);
     }
@@ -206,7 +217,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             //说明退出登录了,更新头像
-            Toast("更新头像");
+
         }
     }
 
@@ -218,4 +229,25 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     }
 
 
+    @Override
+    public void onLoginFail(String errorUserPass) {
+        Toast("账号有变更，请重新登录");
+        SharedUtils.getInstance().clearUser();
+    }
+
+    @Override
+    public void onLoginSuccess(String cid) {
+        //加载自己的头像
+
+    }
+
+    @Override
+    public void onRegisterSuccess(String cid) {
+
+    }
+
+    @Override
+    public void onRegisterFail(String error) {
+
+    }
 }

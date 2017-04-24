@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.junwen.jlibrary.JShareUtils;
 import com.yuyh.library.imgsel.ImageLoader;
 
 import news.news.com.news.Utils.SharedUtils;
@@ -40,11 +39,8 @@ public class MyApp extends Application {
      * 日期:17/4/9 下午4:25
      */
     public static boolean isLogin() {
-        if (TextUtils.isEmpty((CharSequence) JShareUtils.get(getApplication(), "username", ""))) {
-            return false;
-        } else {
-            return true;
-        }
+        String uid = SharedUtils.getInstance().getUid();
+        return !TextUtils.isEmpty(uid);
     }
 
     public static ImageLoader loader = new ImageLoader() {

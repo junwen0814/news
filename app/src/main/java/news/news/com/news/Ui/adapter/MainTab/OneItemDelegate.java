@@ -8,7 +8,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
 
-import news.news.com.news.Mvp.Model.NewsModel;
+import news.news.com.news.Mvp.Model.Response.NewsModel;
 import news.news.com.news.R;
 
 /**
@@ -29,10 +29,10 @@ public class OneItemDelegate implements ItemViewDelegate<NewsModel> {
 
     @Override
     public void convert(ViewHolder holder, NewsModel newsModel, int position) {
-        holder.setText(R.id.one_item_tv_title, newsModel.getNewsTitle());
-        holder.setText(R.id.one_item_tv_newsType, newsModel.getNewsType());
-        holder.setText(R.id.one_item_tv_commentNum, newsModel.getNewsCommentNum());
-        holder.setText(R.id.one_item_tv_Time, newsModel.getNewsTime());
+        holder.setText(R.id.one_item_tv_title, newsModel.getNewstitle());
+        holder.setText(R.id.one_item_tv_newsType, newsModel.getNewssource());
+        holder.setText(R.id.one_item_tv_commentNum, newsModel.getNewscommentnum());
+        holder.setText(R.id.one_item_tv_Time, newsModel.getNewsreleasetime());
         List<String> imgs = newsModel.getImgs();
         if (imgs != null && imgs.size() > 0) {
             ImageView imageView = holder.getView(R.id.one_item_img_img);

@@ -35,6 +35,7 @@
                     android:gravity="center_horizontal"
                     android:text="用户信息"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/tv_textsize"
                     app:layout_centerY="50%" />
 
             </com.github.mmin18.widget.FlexLayout>
@@ -57,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="头像"
+                android:textSize="@dimen/tv_textsize"
                 app:layout_centerY="50%"
                 app:layout_left="3%" />
 
@@ -91,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="昵称"
+                android:textSize="@dimen/tv_textsize"
                 app:layout_centerY="50%"
                 app:layout_left="3%" />
 
@@ -100,6 +103,8 @@
                 android:layout_height="wrap_content"
                 android:maxLength="5"
                 android:text="倾听者_"
+                android:textSize="@dimen/tv_textsize"
+                android:textStyle="bold"
                 app:layout_centerY="50%"
                 app:layout_left="80%" />
         </com.github.mmin18.widget.FlexLayout>
@@ -111,6 +116,34 @@
             app:layout_left="2%"
             app:layout_top="prev.bottom"
             app:layout_width="98%" />
+
+        <com.github.mmin18.widget.FlexLayout
+            android:id="@+id/user_detail_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_height="10%"
+            app:layout_top="prev.bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性别"
+                android:textSize="@dimen/tv_textsize"
+                app:layout_centerY="50%"
+                app:layout_left="3%" />
+
+            <TextView
+                android:id="@+id/user_detail_sex_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="5"
+                android:textSize="@dimen/tv_textsize"
+                android:textStyle="bold"
+                app:layout_centerY="50%"
+                app:layout_left="82%"
+                tools:text="男" />
+        </com.github.mmin18.widget.FlexLayout>
+
     </com.github.mmin18.widget.FlexLayout>
 
 </LinearLayout>

@@ -3,7 +3,7 @@ package news.news.com.news.Ui.adapter.MainTab;
 import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import news.news.com.news.Mvp.Model.NewsModel;
+import news.news.com.news.Mvp.Model.Response.NewsModel;
 import news.news.com.news.R;
 
 /**
@@ -24,9 +24,9 @@ public class SingleItemDelegate implements ItemViewDelegate<NewsModel> {
 
     @Override
     public void convert(ViewHolder holder, NewsModel newsModel, int position) {
-        holder.setText(R.id.single_item_tv_title, newsModel.getNewsTitle());
-        holder.setText(R.id.single_item_tv_newsType, newsModel.getNewsType());
-        holder.setText(R.id.single_item_tv_commentNum, newsModel.getNewsCommentNum());
-        holder.setText(R.id.single_item_tv_Time, newsModel.getNewsTime());
+        holder.setText(R.id.single_item_tv_title, newsModel.getNewstitle());
+        holder.setText(R.id.single_item_tv_newsType, newsModel.getNewssource());
+        holder.setText(R.id.single_item_tv_commentNum, newsModel.getNewscommentnum());
+        holder.setText(R.id.single_item_tv_Time, newsModel.getNewsreleasetime());
     }
 }

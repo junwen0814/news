@@ -4,7 +4,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import news.news.com.news.Api.ApiUtils;
-import news.news.com.news.Mvp.Model.ColumnsRequestModel;
 import news.news.com.news.Mvp.Model.Response.ColumnsResponseModel;
 import news.news.com.news.Mvp.Views.MainView;
 
@@ -18,10 +17,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
      * 日期:17/4/9 下午3:24
      */
     public void requestCategory() {
-        ColumnsRequestModel model = new ColumnsRequestModel();
-        model.setPageNum("1");
-        model.setPageSize("10");
-        ApiUtils.post(model, ColumnsResponseModel.class, "getNewsColumns", "com.sxun.cloud.news.def.INewsColumnService", new ApiUtils.OnApiResult() {
+//        ColumnsRequestModel model = new ColumnsRequestModel();
+//        model.setPageNum("1");
+//        model.setPageSize("10");
+        ApiUtils.post(null, ColumnsResponseModel.class, "getNewsColumnsApp", "com.sxun.cloud.news.def.INewsColumnService", new ApiUtils.OnApiResult() {
             @Override
             public <T> void onSuccess(T data) {
                 ColumnsResponseModel columnsResponseModel = (ColumnsResponseModel) data;

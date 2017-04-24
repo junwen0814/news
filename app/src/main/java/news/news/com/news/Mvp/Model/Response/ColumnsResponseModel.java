@@ -7,22 +7,14 @@ import java.util.List;
  */
 
 public class ColumnsResponseModel {
-    private String total_count;
-    private List<ColumnsModel> lists;
 
-    public String getTotal_count() {
-        return total_count;
+    private List<ColumnsModel> list;
+
+    public List<ColumnsModel> getList() {
+        return list;
     }
 
-    public void setTotal_count(String total_count) {
-        this.total_count = total_count;
-    }
-
-    public List<ColumnsModel> getLists() {
-        return lists;
-    }
-
-    public void setLists(List<ColumnsModel> lists) {
-        this.lists = lists;
+    public void setList(List<ColumnsModel> list) {
+        this.list = list;
     }
 }

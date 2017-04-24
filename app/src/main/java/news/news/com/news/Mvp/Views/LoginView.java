@@ -6,7 +6,9 @@ public interface LoginView extends MvpView {
 
     void onLoginFail(String errorUserPass);
 
-    void onLoginSuccess(String s);
+    void onLoginSuccess(String cid);
 
-    void onRegisterSuccess();
+    void onRegisterSuccess(String cid);
+
+    void onRegisterFail(String error);
 }

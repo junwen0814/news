@@ -5,42 +5,43 @@ package news.news.com.news.Mvp.Model;
  */
 
 public class NewsDetailModel {
-    private String title; //新闻标题
-    private String source; //新闻来源
-    private String time; //新闻时间
-    private String html; //新闻详情页
+
+    private String newstitle; //新闻标题
+    private String newssource; //新闻来源
+    private String newsreleasetime; //新闻时间
+    private String newscontent; //新闻详情页
     private boolean isCollection; //是否收藏
 
-    public String getTitle() {
-        return title;
+    public String getNewstitle() {
+        return newstitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNewstitle(String newstitle) {
+        this.newstitle = newstitle;
     }
 
-    public String getSource() {
-        return source;
+    public String getNewssource() {
+        return newssource;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setNewssource(String newssource) {
+        this.newssource = newssource;
     }
 
-    public String getTime() {
-        return time;
+    public String getNewsreleasetime() {
+        return newsreleasetime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setNewsreleasetime(String newsreleasetime) {
+        this.newsreleasetime = newsreleasetime;
     }
 
-    public String getHtml() {
-        return html;
+    public String getNewscontent() {
+        return newscontent;
     }
 
-    public void setHtml(String html) {
-        this.html = html;
+    public void setNewscontent(String newscontent) {
+        this.newscontent = newscontent;
     }
 
     public boolean isCollection() {

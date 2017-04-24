@@ -1,4 +1,4 @@
-package news.news.com.news.Mvp.Model;
+package news.news.com.news.Mvp.Model.Response;
 
 import android.text.TextUtils;
 
@@ -13,27 +13,27 @@ import news.news.com.news.Common.StrConstant;
 
 public class NewsModel {
 
-    private String newsId; //新闻ID
-    private String newsTitle; //新闻标题
+    private String newsid; //新闻ID
+    private String newstitle; //新闻标题
     private String newsImgs; //图片
-    private String newsType; //新闻类型 社会 等类型
-    private String newsCommentNum; //评论数
-    private String newsTime; //新闻时间
+    private String newssource; //新闻类型 社会 等类型
+    private String newscommentnum; //评论数
+    private String newsreleasetime; //新闻时间
 
-    public String getNewsId() {
-        return newsId;
+    public String getNewsid() {
+        return newsid;
     }
 
-    public void setNewsId(String newsId) {
-        this.newsId = newsId;
+    public void setNewsid(String newsid) {
+        this.newsid = newsid;
     }
 
-    public String getNewsTitle() {
-        return newsTitle;
+    public String getNewstitle() {
+        return newstitle;
     }
 
-    public void setNewsTitle(String newsTitle) {
-        this.newsTitle = newsTitle;
+    public void setNewstitle(String newstitle) {
+        this.newstitle = newstitle;
     }
 
     public String getNewsImgs() {
@@ -44,28 +44,28 @@ public class NewsModel {
         this.newsImgs = newsImgs;
     }
 
-    public String getNewsType() {
-        return newsType;
+    public String getNewssource() {
+        return newssource;
     }
 
-    public void setNewsType(String newsType) {
-        this.newsType = newsType;
+    public void setNewssource(String newssource) {
+        this.newssource = newssource;
     }
 
-    public String getNewsCommentNum() {
-        return newsCommentNum;
+    public String getNewscommentnum() {
+        return newscommentnum;
     }
 
-    public void setNewsCommentNum(String newsCommentNum) {
-        this.newsCommentNum = newsCommentNum;
+    public void setNewscommentnum(String newscommentnum) {
+        this.newscommentnum = newscommentnum;
     }
 
-    public String getNewsTime() {
-        return newsTime;
+    public String getNewsreleasetime() {
+        return newsreleasetime;
     }
 
-    public void setNewsTime(String newsTime) {
-        this.newsTime = newsTime;
+    public void setNewsreleasetime(String newsreleasetime) {
+        this.newsreleasetime = newsreleasetime;
     }
 
     /**

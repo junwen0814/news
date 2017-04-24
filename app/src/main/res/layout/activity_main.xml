@@ -27,6 +27,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="新闻主页"
+                    android:textSize="@dimen/tv_textsize"
                     android:textColor="@color/white"
                     app:layout_centerX="50%"
                     app:layout_centerY="50%" />
@@ -36,7 +37,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/img_main_toolbar_head"
-                    app:layout_left="4%" />
+                    app:layout_left="2%" />
 
                 <ImageView
                     android:id="@+id/main_activity_search"

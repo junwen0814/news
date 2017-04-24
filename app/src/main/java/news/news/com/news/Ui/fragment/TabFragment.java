@@ -19,7 +19,8 @@ import butterknife.ButterKnife;
 import it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter;
 import it.gmariotti.recyclerview.itemanimator.SlideInOutBottomItemAnimator;
 import news.news.com.news.Base.BaseFragment;
-import news.news.com.news.Mvp.Model.NewsModel;
+import news.news.com.news.Mvp.Model.Response.NewsListResponse;
+import news.news.com.news.Mvp.Model.Response.NewsModel;
 import news.news.com.news.Mvp.Presenters.TabPresenter;
 import news.news.com.news.Mvp.Views.TabView;
 import news.news.com.news.R;
@@ -38,8 +39,8 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
 
     private MainTabAdapter mainTabAdapter;
 
-    public static final String ARGUMENTS_COULUMNS = "columnsName";
-    private String columnsName;
+    public static final String ARGUMENTS_CID = "cid";
+    private String cid;
 
     @Override
     public int getLayout() {
@@ -48,7 +49,7 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
 
     @Override
     protected void initView(View view) {
-        columnsName = getArguments().getString(ARGUMENTS_COULUMNS);
+        cid = getArguments().getString(ARGUMENTS_CID);
         mainTabFragmentXrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -60,8 +61,8 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
         mainTabFragmentXrecyclerView.setAdapter(animatorAdapter);
         mainTabFragmentXrecyclerView.setItemAnimator(new SlideInOutBottomItemAnimator(mainTabFragmentXrecyclerView));
         //请求数据
-        if (!TextUtils.isEmpty(columnsName)) {
-            newsListReq(columnsName);
+        if (!TextUtils.isEmpty(cid)) {
+            newsListReq(cid);
         }
     }
 
@@ -70,11 +71,9 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
      * 作者:卜俊文
      * 邮箱:344176791@qq.com
      * 日期:17/4/12 下午8:40
-     *
-     * @param columnsName
      */
-    private void newsListReq(String columnsName) {
-        presenter.newsListByColumns(columnsName);
+    private void newsListReq(String cid) {
+        presenter.newsListByColumns(cid);
     }
 
     @Override
@@ -114,7 +113,7 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
         //跳转新闻详情页
         NewsModel newsModel = mainTabAdapter.getDatas().get(position - 1);
         Intent intent = new Intent(getActivity(), NewDetailActivity.class);
-        intent.putExtra(NewDetailActivity.INTENT_KEY_NEWSID, newsModel.getNewsId());
+        intent.putExtra(NewDetailActivity.INTENT_KEY_NEWSID, newsModel.getNewsid());
         jumpToActivity(getActivity(), intent);
     }
 
@@ -124,14 +123,26 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
     }
 
     /**
-     *描述:新闻列表返回
-     *作者:卜俊文
-     *邮箱:344176791@qq.com
-     *日期:17/4/17 下午10:26
+     * 描述:新闻列表返回
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/17 下午10:26
+     *
+     * @param newsList
      */
     @Override
-    public void onNewsListSuccess(List<NewsModel> newsList) {
-        data.addAll(newsList);
-        mainTabAdapter.notifyDataSetChanged();
+    public void onNewsListSuccess(NewsListResponse newsList) {
+        if (newsList == null) {
+            //新闻列表没有数据
+        } else {
+            List<NewsModel> list = newsList.getList();
+            data.addAll(list);
+            mainTabAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onNewsListFail(String error) {
+        Toast(error);
     }
 }

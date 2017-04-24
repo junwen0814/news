@@ -1,7 +1,6 @@
 package news.news.com.news.Ui.activity;
 
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,14 +11,13 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.daasuu.bl.BubbleLayout;
 import com.junwen.jlibrary.JDensityUtils;
-import com.junwen.jlibrary.JShareUtils;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import news.news.com.news.Base.BaseActivity;
 import news.news.com.news.Mvp.Presenters.LoginPresenter;
 import news.news.com.news.Mvp.Views.LoginView;
 import news.news.com.news.R;
+import news.news.com.news.Utils.SharedUtils;
 
 public class LoginActivity extends BaseActivity implements LoginView, View.OnClickListener {
 
@@ -65,7 +63,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
 
     @Override
     public void initData() {
-
     }
 
     @Override
@@ -79,17 +76,20 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_activity_login:
-                presenter.login(loginActivityUsername.getText(), loginActivityPassword.getText(), isLogin);
+                //登录或注册
+                presenter.login(loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString(), isLogin);
                 break;
             case R.id.login_activity_tv_login:
                 checkFlag(loginActivityTvLogin);
                 isLogin = true;
                 loginActivityUserFlag.setArrowPosition(JDensityUtils.dp2px(mContext, 70));
+                loginActivityLogin.setText("登录");
                 break;
             case R.id.login_activity_tv_register:
                 checkFlag(loginActivityTvRegister);
                 isLogin = false;
                 loginActivityUserFlag.setArrowPosition(JDensityUtils.dp2px(mContext, 235));
+                loginActivityLogin.setText("注册");
                 break;
         }
 
@@ -119,19 +119,22 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     @Override
-    public void onLoginSuccess(String s) {
-        JShareUtils.put(this, "username", loginActivityUsername.getText().toString());
-        JShareUtils.put(this, "password", loginActivityUsername.getText().toString());
+    public void onLoginSuccess(String cid) {
+        SharedUtils.getInstance().setUser(cid, loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString());
         Toast("登录成功");
         finish();
     }
 
     @Override
-    public void onRegisterSuccess() {
+    public void onRegisterSuccess(String cid) {
         Toast("注册成功");
-        JShareUtils.put(this, "username", loginActivityUsername.getText().toString());
-        JShareUtils.put(this, "password", loginActivityUsername.getText().toString());
+        SharedUtils.getInstance().setUser(cid, loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString());
         finish();
+    }
+
+    @Override
+    public void onRegisterFail(String error) {
+        Toast("注册失败");
     }
 
     @Override
@@ -148,10 +151,4 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

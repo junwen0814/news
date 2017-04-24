@@ -5,13 +5,14 @@ package news.news.com.news.Mvp.Model.Api;
  */
 
 public class Content {
-    private Input input;
 
-    public void setInput(Input input) {
-        this.input = input;
-    }
+    private Input input;
 
     public Input getInput() {
         return input;
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
     }
 }

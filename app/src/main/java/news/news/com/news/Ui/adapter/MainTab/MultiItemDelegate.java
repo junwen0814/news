@@ -11,7 +11,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
 
-import news.news.com.news.Mvp.Model.NewsModel;
+import news.news.com.news.Mvp.Model.Response.NewsModel;
 import news.news.com.news.R;
 
 /**
@@ -33,10 +33,10 @@ public class MultiItemDelegate implements ItemViewDelegate<NewsModel> {
     @Override
     public void convert(ViewHolder holder, NewsModel newsModel, int position) {
         Context context = holder.getConvertView().getContext();
-        holder.setText(R.id.multi_item_tv_title, newsModel.getNewsTitle());
-        holder.setText(R.id.multi_item_tv_newsType, newsModel.getNewsType());
-        holder.setText(R.id.multi_item_tv_commentNum, newsModel.getNewsCommentNum());
-        holder.setText(R.id.multi_item_tv_Time, newsModel.getNewsTime());
+        holder.setText(R.id.multi_item_tv_title, newsModel.getNewstitle());
+        holder.setText(R.id.multi_item_tv_newsType, newsModel.getNewssource());
+        holder.setText(R.id.multi_item_tv_commentNum, newsModel.getNewscommentnum());
+        holder.setText(R.id.multi_item_tv_Time, newsModel.getNewsreleasetime());
         List<String> imgs = newsModel.getImgs();
         if (imgs != null && imgs.size() == 3) {
             ImageView img_one = holder.getView(R.id.multi_item_img_img01);

@@ -1,5 +1,7 @@
 package news.news.com.news.Mvp.Model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by junwen on 17/4/17.
  */
@@ -9,7 +11,7 @@ public class NewsVideoModel {
     private String videoTitle; //视频标题
     private String videoSize; //视频大小
     private String videoUrl; //视频地址
-    private String thumb; //缩略图
+    private Bitmap thumb; //缩略图
 
     public String getVideoId() {
         return videoId;
@@ -35,11 +37,11 @@ public class NewsVideoModel {
         this.videoSize = videoSize;
     }
 
-    public String getThumb() {
+    public Bitmap getThumb() {
         return thumb;
     }
 
-    public void setThumb(String thumb) {
+    public void setThumb(Bitmap thumb) {
         this.thumb = thumb;
     }
 

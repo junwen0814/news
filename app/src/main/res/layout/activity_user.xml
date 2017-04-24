@@ -33,7 +33,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/img_login_img_back"
-                            app:layout_left="2%" />
+                            app:layout_left="1%" />
 
                     </com.github.mmin18.widget.FlexLayout>
 
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
-                app:layout_height="40%"
+                app:layout_height="35%"
                 app:layout_top="prev.bottom">
 
 
@@ -64,18 +64,28 @@
                         app:civ_border_color="#ffffff"
                         app:civ_border_width="2dp"
                         app:layout_centerX="50%"
-                        app:layout_centerY="50%"
+                        app:layout_centerY="45%"
                         app:layout_left="5%" />
 
                     <TextView
+                        android:id="@+id/user_activity_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="倾听者"
                         android:textColor="@color/white"
                         android:textSize="22sp"
+                        android:textStyle="bold"
                         app:layout_centerX="50%"
                         app:layout_left="36%"
-                        app:layout_top="prev.bottom+10%" />
+                        app:layout_top="prev.bottom+10%"
+                        tools:text="倾听者" />
+
+                    <ImageView
+                        android:id="@+id/user_activity_sex"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/img_user_male"
+                        app:layout_left="prev.right+3%"
+                        app:layout_top="prev.top+2%" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -110,6 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我的收藏"
+                        android:textSize="@dimen/tv_textsize"
                         app:layout_centerY="50%"
                         app:layout_left="prev.right+2%" />
 
@@ -147,6 +158,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我的评论"
+                        android:textSize="@dimen/tv_textsize"
                         app:layout_centerY="50%"
                         app:layout_left="prev.right+2%" />
 
@@ -186,6 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="系统设置"
+                    android:textSize="@dimen/tv_textsize"
                     app:layout_centerY="50%"
                     app:layout_left="prev.right+2%" />
 
@@ -219,6 +232,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="退出登录"
+                    android:textSize="@dimen/tv_textsize"
                     app:layout_centerY="50%" />
 
             </com.github.mmin18.widget.FlexLayout>

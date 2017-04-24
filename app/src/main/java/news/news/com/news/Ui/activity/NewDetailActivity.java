@@ -25,7 +25,6 @@ import news.news.com.news.Mvp.Model.NewsDetailModel;
 import news.news.com.news.Mvp.Presenters.NewDetailPresenter;
 import news.news.com.news.Mvp.Views.NewDetailView;
 import news.news.com.news.R;
-import news.news.com.news.Utils.DataUtils;
 import news.news.com.news.Utils.HtmlGetter;
 import news.news.com.news.Utils.SharedUtils;
 
@@ -79,22 +78,17 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
 
     @Override
     public void initData() {
-        newsDetail = DataUtils.getNewsDetail(newsId);
-        if (newsDetail == null) {
-            Toast("新闻不存在，请重试");
-            return;
-        }
-        updateNewsModel(newsDetail);
+        presenter.requestNewsDetail(newsId);
     }
 
     private void updateNewsModel(NewsDetailModel newsDetail) {
         if (newsDetail != null) {
             newDetailActivityCollect.setImageResource(newsDetail.isCollection() ? R.drawable.img_detail_collect_press : R.drawable.img_detail_collect_normal);
-            newDetailActivityTitle.setText(newsDetail.getTitle());
-            newDetailActivitySource.setText(newsDetail.getSource());
-            newDetailActivityTime.setText(newsDetail.getTime());
+            newDetailActivityTitle.setText(newsDetail.getNewstitle());
+            newDetailActivitySource.setText(newsDetail.getNewssource());
+            newDetailActivityTime.setText(newsDetail.getNewsreleasetime());
             HtmlGetter html = new HtmlGetter(this, newDetailActivityHtml);
-            newDetailActivityHtml.setText(Html.fromHtml(newsDetail.getHtml(), html, null));
+            newDetailActivityHtml.setText(Html.fromHtml(newsDetail.getNewscontent(), html, null));
         }
     }
 
@@ -124,6 +118,28 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
             }
         });
     }
+
+    /**
+     * 描述:当新闻详情返回
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/19 下午3:16
+     */
+    @Override
+    public void onNewsDetailResponse(NewsDetailModel newsDetailModel) {
+        this.newsDetail = newsDetailModel;
+        if (newsDetail == null) {
+            Toast("新闻不存在，请重试");
+            return;
+        }
+        updateNewsModel(newsDetail);
+    }
+
+    @Override
+    public void onNewsDetailFailResponse(String error) {
+        Toast(error);
+    }
+
 
     // 创建关联菜单
     @Override
@@ -272,4 +288,6 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import news.news.com.news.Mvp.Model.Api.Content;
-import news.news.com.news.Mvp.Model.Api.Input;
 import news.news.com.news.Mvp.Model.Api.Request;
 import news.news.com.news.Mvp.Model.Api.Root;
 import news.news.com.news.Mvp.Model.BaseModel;
@@ -29,12 +28,8 @@ public class ApiUtils {
 
     public static <T extends BaseModel, K extends Object> void post(T data, final Class<K> targer, String operationName, String serverName, final OnApiResult onApiResult) {
         //组装请求实体
-        Input input = new Input();
-        input.setNewsColumn(data);
-
-        //组装请求实体
         final Content content = new Content();
-        content.setInput(input);
+        content.setInput(data);
         Request request = new Request();
         request.setService_name(serverName);
         request.setOperation_name(operationName);
@@ -70,31 +65,34 @@ public class ApiUtils {
                     @Override
                     public void onNext(Object o) {
                         String content = getContent(JSON.toJSONString(o));
+                        KLog.json(content);
                         if ("-1".equals(content)) {
                             onError(new Throwable("请求错误"));
                         } else {
-                            K k = null;
-                            if (content.startsWith("{")) {
-                                //对象
-                                k = new Gson().fromJson(content, targer);
-                            } else if (content.startsWith("[")) {
-                                //集合
-                                try {
-                                    JSONArray jsonArray = new JSONArray(content);
-                                    List<K> list = new ArrayList<K>();
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        list.add(new Gson().fromJson(jsonArray.get(i).toString(), targer));
-                                    }
-                                    k = (K) list;
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            if ("null".equals(content)) {
+                                onApiResult.onSuccess(null);
                             } else {
-                                onApiResult.onFail(content);
-                                KLog.e("错误:" + content);
-                                return;
+                                K k = null;
+                                if (content.startsWith("{")) {
+                                    //对象
+                                    k = JSON.parseObject(content, targer);
+                                } else if (content.startsWith("[")) {
+                                    //集合
+                                    try {
+                                        JSONArray jsonArray = new JSONArray(content);
+                                        List<K> list = new ArrayList<K>();
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            list.add(new Gson().fromJson(jsonArray.get(i).toString(), targer));
+                                        }
+                                        k = (K) list;
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    k = JSON.parseObject(content, targer);
+                                }
+                                onApiResult.onSuccess(k);
                             }
-                            onApiResult.onSuccess(k);
                         }
                     }
                 });
@@ -110,7 +108,7 @@ public class ApiUtils {
             JSONObject output = new JSONObject(String.valueOf(content.get("output")));
             String response_code = output.getString("response_code");
             if ("1".equals(response_code)) {
-                JSONObject content1 = output.getJSONObject("content");
+                Object content1 = output.get("content");
                 return content1.toString();
             } else {
                 return "-1";
