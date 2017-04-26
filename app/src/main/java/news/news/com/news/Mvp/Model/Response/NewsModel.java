@@ -1,10 +1,12 @@
 package news.news.com.news.Mvp.Model.Response;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import news.news.com.news.Api.Api;
 import news.news.com.news.Common.StrConstant;
 
 /**
@@ -19,6 +21,8 @@ public class NewsModel {
     private String newssource; //新闻类型 社会 等类型
     private String newscommentnum; //评论数
     private String newsreleasetime; //新闻时间
+    private String newscontent;
+    private Bitmap thumb;
 
     public String getNewsid() {
         return newsid;
@@ -68,6 +72,25 @@ public class NewsModel {
         this.newsreleasetime = newsreleasetime;
     }
 
+    public String getNewscontent() {
+        if (!TextUtils.isEmpty(newscontent) && newscontent.contains("localhost")) {
+            newscontent.replace("localhost", Api.IP_ADDRESS);
+        }
+        return newscontent;
+    }
+
+    public void setNewscontent(String newscontent) {
+        this.newscontent = newscontent;
+    }
+
+    public Bitmap getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(Bitmap thumb) {
+        this.thumb = thumb;
+    }
+
     /**
      * 描述:返回这个新闻图片类型
      * 作者:卜俊文
@@ -96,10 +119,16 @@ public class NewsModel {
         if (newsImgType == ImgType.NOT_IMG) {
             return null;
         } else if (newsImgType == ImgType.ONE_IMG) {
+            if (newsImgs.contains("localhost")) {
+                newsImgs.replace("localhost", Api.IP_ADDRESS);
+            }
             imgs.add(newsImgs);
         } else if (newsImgType == ImgType.MULTI_IMG) {
             String[] split = newsImgs.split(StrConstant.NEWS_SPIPT);
             for (String s : split) {
+                if (s.contains("localhost")) {
+                    s.replace("localhost", Api.IP_ADDRESS);
+                }
                 imgs.add(s);
             }
         }

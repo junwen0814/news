@@ -11,34 +11,34 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/main_activity_toolbar"
+            android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorPrimaryDark"
+            android:background="?attr/colorPrimary"
             android:elevation="15dp"
-            app:contentInsetStart="0dp">
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/AppTheme.ActionBar">
 
             <com.github.mmin18.widget.FlexLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/my_collect_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_login_img_back"
+                    app:layout_left="1%" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="新闻主页"
-                    android:textSize="@dimen/tv_textsize"
+                    android:text="我的收藏"
                     android:textColor="@color/white"
-                    app:layout_centerX="50%"
+                    android:textSize="@dimen/tv_textsize"
                     app:layout_centerY="50%" />
-
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/main_activity_user"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/img_main_toolbar_head"
-                    app:layout_left="2%" />
-
             </com.github.mmin18.widget.FlexLayout>
 
 
@@ -48,19 +48,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <net.lucode.hackware.magicindicator.MagicIndicator
-            android:id="@+id/main_magic_indicator"
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/my_collect_recycleView"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/main_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </LinearLayout>

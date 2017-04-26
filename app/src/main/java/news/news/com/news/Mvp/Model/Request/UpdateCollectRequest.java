@@ -8,7 +8,7 @@ import news.news.com.news.Mvp.Model.BaseModel;
 
 public class UpdateCollectRequest extends BaseModel{
     private String uid;
-    private boolean isCollect;
+    private String isCollect;
     private String newsid;
 
     public String getUid() {
@@ -19,12 +19,12 @@ public class UpdateCollectRequest extends BaseModel{
         this.uid = uid;
     }
 
-    public boolean isCollect() {
+    public String getIsCollect() {
         return isCollect;
     }
 
-    public void setCollect(boolean collect) {
-        isCollect = collect;
+    public void setIsCollect(String isCollect) {
+        this.isCollect = isCollect;
     }
 
     public String getNewsid() {

@@ -42,13 +42,13 @@
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize" />
-
         <activity
             android:name=".Ui.activity.NewDetailActivity"
             android:theme="@style/MyMaterialTheme"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|stateUnchanged"></activity>
+        <activity
+            android:name=".Ui.activity.MyCollectActivity"
+            android:theme="@style/MyMaterialTheme"></activity>
     </application>
 
 </manifest>

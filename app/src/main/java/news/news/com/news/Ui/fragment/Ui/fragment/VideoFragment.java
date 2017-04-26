@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -20,22 +21,34 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerManager;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import news.news.com.news.Base.BaseFragment;
-import news.news.com.news.Mvp.Model.NewsVideoModel;
+import news.news.com.news.Mvp.Model.Response.NewsListResponse;
+import news.news.com.news.Mvp.Model.Response.NewsModel;
+import news.news.com.news.Mvp.Presenters.TabPresenter;
+import news.news.com.news.Mvp.Views.TabView;
 import news.news.com.news.R;
 import news.news.com.news.Ui.fragment.Mvp.Presenters.VideoPresenter;
 import news.news.com.news.Ui.fragment.Mvp.Views.VideoView;
-import news.news.com.news.Utils.DataUtils;
 import news.news.com.news.Utils.DownThumb;
 
-public class VideoFragment extends BaseFragment implements VideoView {
+public class VideoFragment extends BaseFragment implements VideoView, TabView {
 
     @InjectPresenter
     VideoPresenter presenter;
 
+    @InjectPresenter
+    TabPresenter tabPresenter;
+
     @Bind(R.id.video_fragment_xrecycleView)
     XRecyclerView videoFragmentXrecycleView;
 
-    private List<NewsVideoModel> data = new ArrayList<>();
+    public static final String ARGUMENTS_CID = "cid";
+
+    @Bind(R.id.video_tv_nulldata)
+    TextView videoTvNulldata;
+
+    private List<NewsModel> data = new ArrayList<>();
+
+    private String cid = "";
 
     @Override
     public int getLayout() {
@@ -45,20 +58,16 @@ public class VideoFragment extends BaseFragment implements VideoView {
     @Override
     protected void initView(View view) {
         videoFragmentXrecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    @Override
-    public void initData() {
-        data = DataUtils.getNewsVideoModel();
-        videoFragmentXrecycleView.setAdapter(new CommonAdapter<NewsVideoModel>(getActivity(), R.layout.item_video, data) {
+        cid = getArguments().getString(ARGUMENTS_CID);
+        videoFragmentXrecycleView.setAdapter(new CommonAdapter<NewsModel>(getActivity(), R.layout.item_video, data) {
             @Override
-            protected void convert(ViewHolder holder, final NewsVideoModel newsVideoModel, int position) {
+            protected void convert(ViewHolder holder, final NewsModel newsVideoModel, int position) {
                 final JCVideoPlayerStandard videoPlayerStandard = holder.getView(R.id.video_item_video);
-                videoPlayerStandard.setUp(newsVideoModel.getVideoUrl()
-                        , JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, newsVideoModel.getVideoTitle());
+                videoPlayerStandard.setUp(newsVideoModel.getNewscontent()
+                        , JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, newsVideoModel.getNewstitle());
                 if (newsVideoModel.getThumb() == null) {
                     //如果没有缩略图,就去请求缩略图
-                    new DownThumb(newsVideoModel.getVideoUrl(), new DownThumb.OnDownThumbResponse() {
+                    new DownThumb(newsVideoModel.getNewscontent(), new DownThumb.OnDownThumbResponse() {
                         @Override
                         public void onDownThumbSuccess(Bitmap videoThumbnail) {
                             videoPlayerStandard.thumbImageView.setImageBitmap(videoThumbnail);
@@ -70,6 +79,11 @@ public class VideoFragment extends BaseFragment implements VideoView {
                 }
             }
         });
+    }
+
+    @Override
+    public void initData() {
+        tabPresenter.newsListByColumns(cid);
     }
 
     @Override
@@ -98,6 +112,28 @@ public class VideoFragment extends BaseFragment implements VideoView {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onNewsListSuccess(NewsListResponse newsList) {
+        if (newsList != null) {
+            List<NewsModel> list = newsList.getList();
+            if (list.size() > 0) {
+                videoTvNulldata.setVisibility(View.GONE);
+                data.clear();
+                data.addAll(list);
+                videoFragmentXrecycleView.getAdapter().notifyDataSetChanged();
+            } else {
+                videoTvNulldata.setVisibility(View.VISIBLE);
+            }
+        } else {
+            videoTvNulldata.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onNewsListFail(String error) {
+
     }
 
 }

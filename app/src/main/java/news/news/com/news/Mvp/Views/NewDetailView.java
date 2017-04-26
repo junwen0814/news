@@ -18,4 +18,8 @@ public interface NewDetailView extends MvpView {
     void onUpdateCollectFail();
 
     void onCommentResponse(List<CommontModel> list);
+
+    void onAddCommentResponse();
+
+    void onAddCommentFail(String 请先进行登录);
 }

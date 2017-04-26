@@ -33,7 +33,9 @@ import static android.content.ContentValues.TAG;
  */
 public class Api {
 
-    private static final String BASE_URL = "http://172.16.2.134:8088/news/"; //根地址
+    public static final String IP_ADDRESS = "172.16.2.134";
+
+    private static final String BASE_URL = "http://" + IP_ADDRESS + ":8088/news/"; //根地址
 
     public static final String PATH = "service?format=JSON";
 

@@ -3,6 +3,8 @@ package news.news.com.news.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import news.news.com.news.Base.MyApp;
+
 /**
  * Created by junwen on 17/4/14.
  */
@@ -93,5 +95,6 @@ public class SharedUtils {
      */
     public void clearUser() {
         setUser("", "", "");
+        MyApp.userId = "";
     }
 }

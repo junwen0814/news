@@ -100,7 +100,7 @@ public class UserActivity extends BaseActivity implements UserView, View.OnClick
                 jumpToActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.user_activity_collection:
-                Toast("我的收藏");
+                jumpToActivity(MyCollectActivity.class);
                 break;
             case R.id.user_activity_comment:
                 Toast("我的评论");

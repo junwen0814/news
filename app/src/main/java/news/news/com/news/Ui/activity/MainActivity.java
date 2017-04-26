@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.socks.library.KLog;
@@ -66,9 +65,6 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     @Bind(R.id.main_viewpager)
     ViewPager mainViewpager;
 
-    @Bind(R.id.main_activity_search)
-    ImageView mainActivitySearch;
-
     @Bind(R.id.main_activity_user)
     CircleImageView mainActivityUser;
 
@@ -107,7 +103,6 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
 
     @Override
     public void initListener() {
-        mainActivitySearch.setOnClickListener(this);
         mainActivityUser.setOnClickListener(this);
     }
 
@@ -124,7 +119,11 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
         TabFragment videoFragment = null;
         for (ColumnsModel item : lists) {
             if ("视频".equals(item.getCname())) {
-                viewpager_list.add(new VideoFragment());
+                VideoFragment videoFragment1 = new VideoFragment();
+                bundle = new Bundle();
+                bundle.putString(VideoFragment.ARGUMENTS_CID, item.getCid());
+                videoFragment1.setArguments(bundle);
+                viewpager_list.add(videoFragment1);
             } else {
                 KLog.e("栏目 ：" + item.getCname());
                 videoFragment = new TabFragment();
@@ -199,9 +198,6 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.main_activity_search:
-                Toast("搜索");
-                break;
             case R.id.main_activity_user:
                 if (!MyApp.isLogin()) {
                     jumpToActivity(LoginActivity.class);

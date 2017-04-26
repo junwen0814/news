@@ -38,7 +38,8 @@ public class MultiItemDelegate implements ItemViewDelegate<NewsModel> {
         holder.setText(R.id.multi_item_tv_commentNum, newsModel.getNewscommentnum());
         holder.setText(R.id.multi_item_tv_Time, newsModel.getNewsreleasetime());
         List<String> imgs = newsModel.getImgs();
-        if (imgs != null && imgs.size() == 3) {
+        if (imgs != null && imgs.size() > 3) {
+            imgs = imgs.subList(0, 3);
             ImageView img_one = holder.getView(R.id.multi_item_img_img01);
             ImageView img_two = holder.getView(R.id.multi_item_img_img02);
             ImageView img_three = holder.getView(R.id.multi_item_img_img03);

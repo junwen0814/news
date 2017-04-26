@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.github.mmin18.widget.FlexLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/news_collect_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/tv_textsize"
+            tools:text="ddddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
+
+        <TextView
+            android:id="@+id/news_collect_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_top="prev.bottom+5"
+            tools:text="2010-08-14" />
+    </com.github.mmin18.widget.FlexLayout>
+</LinearLayout>

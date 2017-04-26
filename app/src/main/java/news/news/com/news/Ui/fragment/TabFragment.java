@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -34,6 +35,9 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
 
     @Bind(R.id.main_tab_fragment_xrecyclerView)
     XRecyclerView mainTabFragmentXrecyclerView;
+
+    @Bind(R.id.main_tab_tv_nulldata)
+    TextView mainTabTvNulldata;
 
     private List<NewsModel> data = new ArrayList<>();
 
@@ -128,12 +132,19 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
     @Override
     public void onNewsListSuccess(NewsListResponse newsList) {
         mainTabFragmentXrecyclerView.refreshComplete();
-        if (newsList == null) {
-            //新闻列表没有数据
-        } else {
+        if (newsList != null) {
             List<NewsModel> list = newsList.getList();
-            data.addAll(list);
-            mainTabAdapter.notifyDataSetChanged();
+            if (list.size() > 0) {
+                //新闻列表没有数据
+                mainTabTvNulldata.setVisibility(View.GONE);
+                data.clear();
+                data.addAll(list);
+                mainTabAdapter.notifyDataSetChanged();
+            } else {
+                mainTabTvNulldata.setVisibility(View.VISIBLE);
+            }
+        } else {
+            mainTabTvNulldata.setVisibility(View.GONE);
         }
     }
 
@@ -141,4 +152,5 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
     public void onNewsListFail(String error) {
         Toast(error);
     }
+
 }

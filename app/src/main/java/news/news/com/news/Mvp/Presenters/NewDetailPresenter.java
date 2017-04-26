@@ -1,9 +1,13 @@
 package news.news.com.news.Mvp.Presenters;
 
+import android.text.TextUtils;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import news.news.com.news.Api.ApiUtils;
+import news.news.com.news.Base.MyApp;
+import news.news.com.news.Mvp.Model.Request.AddCommentRequest;
 import news.news.com.news.Mvp.Model.Request.CommentListRequest;
 import news.news.com.news.Mvp.Model.Request.NewsDetailRequest;
 import news.news.com.news.Mvp.Model.Request.UpdateCollectRequest;
@@ -23,6 +27,7 @@ public class NewDetailPresenter extends MvpPresenter<NewDetailView> {
     public void requestNewsDetail(String newsId) {
         NewsDetailRequest newsDetailRequest = new NewsDetailRequest();
         newsDetailRequest.setNewsid(newsId);
+        newsDetailRequest.setUid(MyApp.userId);
         ApiUtils.post(newsDetailRequest, NewsDetailResponse.class, "getNewsContentByNewsidApp", "com.sxun.cloud.news.def.INewsContentService", new ApiUtils.OnApiResult() {
             @Override
             public <T> void onSuccess(T data) {
@@ -46,10 +51,14 @@ public class NewDetailPresenter extends MvpPresenter<NewDetailView> {
      * 日期:17/4/25 下午9:30
      */
     public void updateCollect(String userId, String newsid, boolean iscollect) {
+        if (TextUtils.isEmpty(MyApp.userId)) {
+            getViewState().onUpdateCollectFail();
+            return;
+        }
         UpdateCollectRequest newsDetailRequest = new UpdateCollectRequest();
         newsDetailRequest.setNewsid(newsid);
         newsDetailRequest.setUid(userId);
-        newsDetailRequest.setCollect(iscollect);
+        newsDetailRequest.setIsCollect(iscollect ? "true" : "false");
         ApiUtils.post(newsDetailRequest, Object.class, "upNewsCollect", "com.sxun.cloud.news.def.INewsCollectService", new ApiUtils.OnApiResult() {
             @Override
             public <T> void onSuccess(T data) {
@@ -78,13 +87,41 @@ public class NewDetailPresenter extends MvpPresenter<NewDetailView> {
             @Override
             public <T> void onSuccess(T data) {
                 NewsCommontResponse newsCommontResponse = (NewsCommontResponse) data;
-                if(newsCommontResponse != null){
+                if (newsCommontResponse != null) {
                     getViewState().onCommentResponse(newsCommontResponse.getList());
                 }
             }
 
             @Override
             public void onFail(String error) {
+            }
+        });
+    }
+
+    /**
+     * 描述:发送评论信息
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/26 下午10:26
+     */
+    public void sendCommentMessage(String newsid, String comment) {
+        if (TextUtils.isEmpty(MyApp.userId)) {
+            getViewState().onAddCommentFail("请先进行登录");
+            return;
+        }
+        AddCommentRequest commentRequest = new AddCommentRequest();
+        commentRequest.setUid(MyApp.userId);
+        commentRequest.setNewsid(newsid);
+        commentRequest.setRcontent(comment);
+        ApiUtils.post(commentRequest, Object.class, "addNewsReviewApp", "com.sxun.cloud.news.def.INewsReviewService", new ApiUtils.OnApiResult() {
+            @Override
+            public <T> void onSuccess(T data) {
+                getViewState().onAddCommentResponse();
+            }
+
+            @Override
+            public void onFail(String error) {
+                getViewState().onAddCommentFail(error);
             }
         });
     }

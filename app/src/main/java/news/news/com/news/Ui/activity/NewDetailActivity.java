@@ -2,7 +2,6 @@ package news.news.com.news.Ui.activity;
 
 import android.content.DialogInterface;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,10 +23,10 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import news.news.com.news.Base.BaseActivity;
 import news.news.com.news.Base.MyApp;
 import news.news.com.news.Common.ContentSizeConstant;
@@ -182,7 +181,6 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
      */
     @Override
     public void onUpdateCollectSuccess() {
-        Toast("收藏成功");
         newDetailActivityCollect.setImageResource(newsDetail.isCollection() ? R.drawable.img_detail_collect_press : R.drawable.img_detail_collect_normal);
     }
 
@@ -194,7 +192,7 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
      */
     @Override
     public void onUpdateCollectFail() {
-        Toast("收藏失败");
+        Toast("请先登录再进行收藏");
         newsDetail.setCollection(!newsDetail.isCollection());
     }
 
@@ -208,9 +206,21 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
     public void onCommentResponse(List<CommontModel> list) {
         if (list.size() > 0) {
             data.clear();
+            Collections.reverse(list);
             data.addAll(list);
             newDetailActivityRecycleView.getAdapter().notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onAddCommentResponse() {
+        newDetailActivityComment.setText("");
+        presenter.requestNewsComment(newsId);
+    }
+
+    @Override
+    public void onAddCommentFail(String error) {
+        Toast(error);
     }
 
 
@@ -320,7 +330,7 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
                     Toast("评论不可为空");
                     return;
                 }
-                sendComment();
+                sendComment(newsDetail.getNewsid());
         }
     }
 
@@ -329,12 +339,13 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
      * 作者:卜俊文
      * 邮箱:344176791@qq.com
      * 日期:17/4/14 下午2:47
+     *
+     * @param newsid
      */
-    private void sendComment() {
+    private void sendComment(String newsid) {
         String comment = newDetailActivityComment.getText().toString();
-        Toast(comment);
         JKeyboardUtils.closeKeybord(newDetailActivityComment, NewDetailActivity.this);
-        newDetailActivityComment.setText("");
+        presenter.sendCommentMessage(newsid, comment);
     }
 
     @Override
@@ -352,10 +363,4 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

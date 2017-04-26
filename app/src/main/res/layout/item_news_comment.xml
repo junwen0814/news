@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             app:layout_left="prev.right+2%"
-            app:layout_top="5%"
+            app:layout_top="3%"
             tools:text="小米用户" />
 
         <TextView
