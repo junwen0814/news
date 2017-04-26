@@ -15,6 +15,8 @@ public class TabPresenter extends MvpPresenter<TabView> {
 //        List<NewsModel> newsModels = DataUtils.getNewsList();
         NewsListRequest request = new NewsListRequest();
         request.setCid(cid);
+        request.setPageSize("10");
+        request.setPageNum("1");
         ApiUtils.post(request, NewsListResponse.class, "getNewsContentsApp", "com.sxun.cloud.news.def.INewsContentService", new ApiUtils.OnApiResult() {
             @Override
             public <T> void onSuccess(T data) {

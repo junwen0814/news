@@ -14,6 +14,7 @@ import com.junwen.jlibrary.JDensityUtils;
 
 import butterknife.Bind;
 import news.news.com.news.Base.BaseActivity;
+import news.news.com.news.Base.MyApp;
 import news.news.com.news.Mvp.Presenters.LoginPresenter;
 import news.news.com.news.Mvp.Views.LoginView;
 import news.news.com.news.R;
@@ -119,16 +120,18 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     @Override
-    public void onLoginSuccess(String cid) {
-        SharedUtils.getInstance().setUser(cid, loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString());
+    public void onLoginSuccess(String uid) {
+        MyApp.userId = uid;
+        SharedUtils.getInstance().setUser(uid, loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString());
         Toast("登录成功");
         finish();
     }
 
     @Override
-    public void onRegisterSuccess(String cid) {
+    public void onRegisterSuccess(String uid) {
         Toast("注册成功");
-        SharedUtils.getInstance().setUser(cid, loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString());
+        MyApp.userId = uid;
+        SharedUtils.getInstance().setUser(uid, loginActivityUsername.getText().toString(), loginActivityPassword.getText().toString());
         finish();
     }
 

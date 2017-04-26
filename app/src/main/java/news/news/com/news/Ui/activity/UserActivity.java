@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.github.mmin18.widget.FlexLayout;
-import com.junwen.jlibrary.JShareUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -18,7 +17,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.Bind;
 import de.hdodenhof.circleimageview.CircleImageView;
 import news.news.com.news.Base.BaseActivity;
-import news.news.com.news.Common.ShareConstant;
 import news.news.com.news.Common.event.UserHeadEvent;
 import news.news.com.news.Mvp.Model.UserInfoModel;
 import news.news.com.news.Mvp.Presenters.UserPresenter;
@@ -115,8 +113,7 @@ public class UserActivity extends BaseActivity implements UserView, View.OnClick
                 break;
             case R.id.user_activity_exit:
                 //退出登录,返回到登录页面
-                JShareUtils.put(this, ShareConstant.KEY_USERNAME, "");
-                JShareUtils.put(this, ShareConstant.KEY_PASSWORD, "");
+                SharedUtils.getInstance().clearUser();
                 setResult(RESULT_OK);
                 finish();
                 break;

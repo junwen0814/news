@@ -2,7 +2,10 @@ package news.news.com.news.Ui.activity;
 
 import android.content.DialogInterface;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
@@ -17,10 +20,18 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.junwen.jlibrary.JKeyboardUtils;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import news.news.com.news.Base.BaseActivity;
+import news.news.com.news.Base.MyApp;
 import news.news.com.news.Common.ContentSizeConstant;
+import news.news.com.news.Mvp.Model.CommontModel;
 import news.news.com.news.Mvp.Model.NewsDetailModel;
 import news.news.com.news.Mvp.Presenters.NewDetailPresenter;
 import news.news.com.news.Mvp.Views.NewDetailView;
@@ -59,9 +70,14 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
     @Bind(R.id.new_detail_activity_comment_send)
     TextView newDetailActivityCommentSend;
 
+    @Bind(R.id.new_detail_activity_recycleView)
+    RecyclerView newDetailActivityRecycleView;
+
     private String newsId;
 
     private NewsDetailModel newsDetail;
+
+    private List<CommontModel> data = new ArrayList<>();
 
     @Override
     public int getLayout() {
@@ -74,13 +90,31 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
         newDetailActivityHtml.setTextSize(getContentSize());
         setSupportActionBar(newsDetailActivityToolbar);
         newsId = getIntent().getStringExtra(INTENT_KEY_NEWSID);
+        newDetailActivityRecycleView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     public void initData() {
         presenter.requestNewsDetail(newsId);
+        presenter.requestNewsComment(newsId);
+        newDetailActivityRecycleView.setAdapter(new CommonAdapter<CommontModel>(this, R.layout.item_news_comment, data) {
+            @Override
+            protected void convert(ViewHolder holder, CommontModel commontModel, int position) {
+                holder.setText(R.id.news_comment_username, commontModel.getNickname());
+                holder.setText(R.id.news_comment_time, commontModel.getRtime());
+                holder.setText(R.id.news_comment_content, commontModel.getRcontent());
+//                CircleImageView head = holder.getView(R.id.news_comment_head);
+//                Glide.with(head.getContext()).load(commontModel.get)
+            }
+        });
     }
 
+    /**
+     * 描述:更新新闻内容
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/26 上午11:08
+     */
     private void updateNewsModel(NewsDetailModel newsDetail) {
         if (newsDetail != null) {
             newDetailActivityCollect.setImageResource(newsDetail.isCollection() ? R.drawable.img_detail_collect_press : R.drawable.img_detail_collect_normal);
@@ -138,6 +172,45 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
     @Override
     public void onNewsDetailFailResponse(String error) {
         Toast(error);
+    }
+
+    /**
+     * 描述:更新收藏成功
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/25 下午9:35
+     */
+    @Override
+    public void onUpdateCollectSuccess() {
+        Toast("收藏成功");
+        newDetailActivityCollect.setImageResource(newsDetail.isCollection() ? R.drawable.img_detail_collect_press : R.drawable.img_detail_collect_normal);
+    }
+
+    /**
+     * 描述:更新收藏失败
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/25 下午9:35
+     */
+    @Override
+    public void onUpdateCollectFail() {
+        Toast("收藏失败");
+        newsDetail.setCollection(!newsDetail.isCollection());
+    }
+
+    /**
+     * 描述:评论列表返回
+     * 作者:卜俊文
+     * 邮箱:344176791@qq.com
+     * 日期:17/4/26 上午10:28
+     */
+    @Override
+    public void onCommentResponse(List<CommontModel> list) {
+        if (list.size() > 0) {
+            data.clear();
+            data.addAll(list);
+            newDetailActivityRecycleView.getAdapter().notifyDataSetChanged();
+        }
     }
 
 
@@ -239,8 +312,7 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
             case R.id.new_detail_activity_collect:
                 //切换收藏
                 newsDetail.setCollection(!newsDetail.isCollection());
-                newDetailActivityCollect.setImageResource(newsDetail.isCollection() ? R.drawable.img_detail_collect_press : R.drawable.img_detail_collect_normal);
-                collectUpdate(newsDetail.isCollection());
+                presenter.updateCollect(MyApp.userId, newsDetail.getNewsid(), newsDetail.isCollection());
                 break;
             case R.id.new_detail_activity_comment_send:
                 //发送评论
@@ -265,16 +337,6 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
         newDetailActivityComment.setText("");
     }
 
-    /**
-     * 描述:收藏更新
-     * 作者:卜俊文
-     * 邮箱:344176791@qq.com
-     * 日期:17/4/14 上午11:16
-     */
-    private void collectUpdate(boolean isCollect) {
-        Toast(isCollect ? "收藏成功" : "取消收藏");
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -290,4 +352,10 @@ public class NewDetailActivity extends BaseActivity implements NewDetailView, To
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

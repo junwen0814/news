@@ -33,7 +33,7 @@ import static android.content.ContentValues.TAG;
  */
 public class Api {
 
-    private static final String BASE_URL = "http://172.16.2.131:8088/sxuncloud/"; //根地址
+    private static final String BASE_URL = "http://172.16.2.134:8088/news/"; //根地址
 
     public static final String PATH = "service?format=JSON";
 

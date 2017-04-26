@@ -90,12 +90,7 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mainTabFragmentXrecyclerView.refreshComplete();
-            }
-        }, 2000);
+        presenter.newsListByColumns(cid);
     }
 
     @Override
@@ -132,6 +127,7 @@ public class TabFragment extends BaseFragment implements TabView, XRecyclerView.
      */
     @Override
     public void onNewsListSuccess(NewsListResponse newsList) {
+        mainTabFragmentXrecyclerView.refreshComplete();
         if (newsList == null) {
             //新闻列表没有数据
         } else {

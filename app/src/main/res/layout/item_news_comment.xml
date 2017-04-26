@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.github.mmin18.widget.FlexLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/news_comment_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_user_img"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/news_comment_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_left="prev.right+2%"
+            app:layout_top="5%"
+            tools:text="小米用户" />
+
+        <TextView
+            android:id="@+id/news_comment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_default_color"
+            app:layout_left="prev.left"
+            app:layout_top="prev.bottom+2%"
+            tools:text="2010-08-14" />
+
+        <TextView
+            android:id="@+id/news_comment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_top="news_comment_head.bottom+10"
+            tools:text="这时速度都是ADS撒撒撒爱上爱上爱上撒爱上爱上爱上撒爱上撒爱上爱上爱上爱上爱上爱上爱上撒爱上爱上爱上爱上爱上爱上爱上爱上撒爱上" />
+    </com.github.mmin18.widget.FlexLayout>
+</LinearLayout>

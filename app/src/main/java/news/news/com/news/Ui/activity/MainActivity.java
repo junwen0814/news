@@ -236,9 +236,9 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     }
 
     @Override
-    public void onLoginSuccess(String cid) {
+    public void onLoginSuccess(String uid) {
         //加载自己的头像
-
+        MyApp.userId = uid;
     }
 
     @Override

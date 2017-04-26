@@ -20,6 +20,8 @@ public class MyApp extends Application {
 
     private static boolean logined = false;
 
+    public static String userId = "";
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -39,7 +39,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                 }
             });
         } else {
-            ApiUtils.post(userLoginRequest, Object.class, "addNewsUserApp", "com.sxun.cloud.news.def.INewsUserService", new ApiUtils.OnApiResult() {
+            ApiUtils.post(userLoginRequest, LoginModel.class, "addNewsUserApp", "com.sxun.cloud.news.def.INewsUserService", new ApiUtils.OnApiResult() {
                 @Override
                 public <T> void onSuccess(T data) {
                     //注册成功
