@@ -1,6 +1,7 @@
 package news.news.com.news.Ui.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -8,9 +9,12 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.socks.library.KLog;
@@ -68,6 +72,9 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     @Bind(R.id.main_activity_user)
     CircleImageView mainActivityUser;
 
+    @Bind(R.id.main_tool_ip)
+    TextView mainToolIp;
+
     private CommonNavigator commonNavigator;
 
     private List<Fragment> viewpager_list;
@@ -104,6 +111,35 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     @Override
     public void initListener() {
         mainActivityUser.setOnClickListener(this);
+        mainToolIp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ipAddress = SharedUtils.getInstance().getIpAddress();
+                final EditText inputServer = new EditText(MainActivity.this);
+                inputServer.setHint("Ip地址");
+                inputServer.setText(ipAddress);
+                inputServer.selectAll();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Ip地址").setView(inputServer)
+                        .setNegativeButton("返回", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!TextUtils.isEmpty(inputServer.getText())) {
+                            String name = inputServer.getText().toString();
+                            SharedUtils.getInstance().setIpAddress(name);
+                            dialog.dismiss();
+                            finish();
+                        } else {
+                            Toast("Ip不可为空");
+                        }
+                    }
+
+
+                });
+                builder.show();
+            }
+        });
     }
 
     /**
@@ -172,7 +208,7 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
             public IPagerTitleView getTitleView(Context context, final int i) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#b5b5b5"));
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#f16467"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#3498DB"));
                 colorTransitionPagerTitleView.setText(lists.get(i).getCname());
                 colorTransitionPagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +223,7 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.parseColor("#f16467"));
+                indicator.setColors(Color.parseColor("#3498DB"));
                 indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
                 return indicator;
             }
@@ -246,4 +282,5 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     public void onRegisterFail(String error) {
 
     }
+
 }

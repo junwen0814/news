@@ -25,12 +25,12 @@ public class MyCollectPresenter extends MvpPresenter<MyCollectView> {
         collectRequest.setUid(userId);
         collectRequest.setPageNum("1");
         collectRequest.setPageSize("10");
-        ApiUtils.post(collectRequest, NewsCollectResponse.class, "getNewsCollects", "com.sxun.cloud.news.def.INewsCollectService", new ApiUtils.OnApiResult() {
+        ApiUtils.post(collectRequest, NewsCollectResponse.class, "getNewsCollectLists", "com.sxun.cloud.news.def.INewsCollectService", new ApiUtils.OnApiResult() {
             @Override
             public <T> void onSuccess(T data) {
                 NewsCollectResponse newsDetailResponse = (NewsCollectResponse) data;
                 if (newsDetailResponse != null) {
-                    List<CollectModel> list = newsDetailResponse.getLists();
+                    List<CollectModel> list = newsDetailResponse.getList();
                     getViewState().onCollectResponse(list);
                 }
             }

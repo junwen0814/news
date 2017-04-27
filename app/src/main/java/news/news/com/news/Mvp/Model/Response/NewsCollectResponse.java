@@ -9,13 +9,13 @@ import news.news.com.news.Mvp.Model.CollectModel;
  */
 
 public class NewsCollectResponse {
-    private List<CollectModel> lists;
+    private List<CollectModel> list;
 
-    public List<CollectModel> getLists() {
-        return lists;
+    public List<CollectModel> getList() {
+        return list;
     }
 
-    public void setLists(List<CollectModel> lists) {
-        this.lists = lists;
+    public void setList(List<CollectModel> list) {
+        this.list = list;
     }
 }

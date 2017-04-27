@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#364F6B</color>
-    <color name="colorPrimaryDark">#364F6B</color>
-    <color name="colorAccent">#364F6B</color>
+    <color name="colorPrimary">#3498DB</color>
+    <color name="colorPrimaryDark">#3498DB</color>
+    <color name="colorAccent">#3498DB</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="news_title_color">#de000000</color>
     <color name="text_default_color">#c3c2c3</color>
     <color name="text_select_color">#5aa1e3</color>
-    <color name="login_flag_text_color_select">#cf5e56</color>
+    <color name="login_flag_text_color_select">#3498DB</color>
     <color name="login_flag_text_color_default">#ffffff</color>
     <color name="bg_gray">#ededed</color>
 </resources>

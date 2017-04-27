@@ -8,7 +8,7 @@
 
     <com.github.mmin18.widget.FlexLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,12 +37,36 @@
             app:layout_top="prev.bottom+2%"
             tools:text="2010-08-14" />
 
-        <TextView
-            android:id="@+id/news_comment_content"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_top="news_comment_head.bottom+10"
-            tools:text="这时速度都是ADS撒撒撒爱上爱上爱上撒爱上爱上爱上撒爱上撒爱上爱上爱上爱上爱上爱上爱上撒爱上爱上爱上爱上爱上爱上爱上爱上撒爱上" />
+            app:layout_top="prev.bottom+5%">
+
+            <com.daasuu.bl.BubbleLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                app:bl_arrowDirection="top"
+                app:bl_arrowHeight="6dp"
+                app:bl_arrowPosition="23dp"
+                app:bl_arrowWidth="8dp"
+                app:bl_bubbleColor="#eeeeee"
+                app:bl_cornersRadius="6dp"
+                app:bl_strokeColor="#00000000"
+                app:bl_strokeWidth="0.2dp">
+
+                <TextView
+                    android:id="@+id/news_comment_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:textSize="16sp"
+                    tools:text="这时速度都是ADS撒撒撒爱上爱上爱上撒爱上爱上爱上撒爱上撒爱上爱上爱上爱上爱上爱上爱上撒爱上爱上爱上爱上爱上爱上爱上爱上撒爱上" />
+
+            </com.daasuu.bl.BubbleLayout>
+
+        </LinearLayout>
+
+
     </com.github.mmin18.widget.FlexLayout>
 </LinearLayout>

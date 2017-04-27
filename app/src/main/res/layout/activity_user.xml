@@ -60,7 +60,7 @@
                         android:id="@+id/user_activity_head_img"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/img_user_img"
+                        android:src="@drawable/img_main_toolbar_head"
                         app:civ_border_color="#ffffff"
                         app:civ_border_width="2dp"
                         app:layout_centerX="50%"

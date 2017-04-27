@@ -2,10 +2,12 @@ package news.news.com.news.Api;
 
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.readystatesoftware.chuck.ChuckInterceptor;
+import com.socks.library.KLog;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +35,7 @@ import static android.content.ContentValues.TAG;
  */
 public class Api {
 
-    public static final String IP_ADDRESS = "172.16.2.134";
+    public static String IP_ADDRESS = "172.16.2.134";
 
     private static final String BASE_URL = "http://" + IP_ADDRESS + ":8088/news/"; //根地址
 
@@ -49,8 +51,10 @@ public class Api {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+        Toast.makeText(MyApp.context, "http://" + IP_ADDRESS + ":8088/news/", Toast.LENGTH_SHORT).show();
+        KLog.e();
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl("http://" + IP_ADDRESS + ":8088/news/")
                 .client(initHttpClient())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))//异步IO请求
 //                .addConverterFactory(GsonConverterFactory.create())//转换层

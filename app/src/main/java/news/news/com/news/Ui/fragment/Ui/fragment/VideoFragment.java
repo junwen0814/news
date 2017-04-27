@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerManager;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter;
 import news.news.com.news.Base.BaseFragment;
 import news.news.com.news.Mvp.Model.Response.NewsListResponse;
 import news.news.com.news.Mvp.Model.Response.NewsModel;
@@ -49,6 +50,7 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
     private List<NewsModel> data = new ArrayList<>();
 
     private String cid = "";
+    private CommonAdapter commonAdapter;
 
     @Override
     public int getLayout() {
@@ -59,7 +61,8 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
     protected void initView(View view) {
         videoFragmentXrecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         cid = getArguments().getString(ARGUMENTS_CID);
-        videoFragmentXrecycleView.setAdapter(new CommonAdapter<NewsModel>(getActivity(), R.layout.item_video, data) {
+        //如果没有缩略图,就去请求缩略图
+        commonAdapter = new CommonAdapter<NewsModel>(getActivity(), R.layout.item_video, data) {
             @Override
             protected void convert(ViewHolder holder, final NewsModel newsVideoModel, int position) {
                 final JCVideoPlayerStandard videoPlayerStandard = holder.getView(R.id.video_item_video);
@@ -78,7 +81,9 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
                     videoPlayerStandard.thumbImageView.setImageBitmap(newsVideoModel.getThumb());
                 }
             }
-        });
+        };
+        SlideInBottomAnimatorAdapter animatorAdapter = new SlideInBottomAnimatorAdapter(commonAdapter, videoFragmentXrecycleView);
+        videoFragmentXrecycleView.setAdapter(animatorAdapter);
     }
 
     @Override
@@ -91,7 +96,6 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
         videoFragmentXrecycleView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-
             }
 
             @Override
@@ -106,6 +110,17 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
                 }
             }
         });
+        videoFragmentXrecycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                tabPresenter.newsListByColumns(cid);
+            }
+
+            @Override
+            public void onLoadMore() {
+
+            }
+        });
     }
 
     @Override
@@ -116,6 +131,7 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
 
     @Override
     public void onNewsListSuccess(NewsListResponse newsList) {
+        videoFragmentXrecycleView.refreshComplete();
         if (newsList != null) {
             List<NewsModel> list = newsList.getList();
             if (list.size() > 0) {
@@ -133,7 +149,7 @@ public class VideoFragment extends BaseFragment implements VideoView, TabView {
 
     @Override
     public void onNewsListFail(String error) {
-
+        videoFragmentXrecycleView.refreshComplete();
     }
 
 }

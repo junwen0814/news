@@ -3,6 +3,7 @@ package news.news.com.news.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import news.news.com.news.Api.Api;
 import news.news.com.news.Base.MyApp;
 
 /**
@@ -96,5 +97,14 @@ public class SharedUtils {
     public void clearUser() {
         setUser("", "", "");
         MyApp.userId = "";
+    }
+
+    public String getIpAddress() {
+        return sharedPreferences.getString("ipAddress", "");
+    }
+
+    public void setIpAddress(String ipAddress) {
+        sharedPreferences.edit().putString("ipAddress", ipAddress).commit();
+        Api.IP_ADDRESS = ipAddress;
     }
 }

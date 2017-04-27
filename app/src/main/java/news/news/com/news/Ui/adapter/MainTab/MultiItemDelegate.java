@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.junwen.jlibrary.JDensityUtils;
 import com.junwen.jlibrary.JScreenUtils;
+import com.socks.library.KLog;
 import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -38,7 +39,7 @@ public class MultiItemDelegate implements ItemViewDelegate<NewsModel> {
         holder.setText(R.id.multi_item_tv_commentNum, newsModel.getNewscommentnum());
         holder.setText(R.id.multi_item_tv_Time, newsModel.getNewsreleasetime());
         List<String> imgs = newsModel.getImgs();
-        if (imgs != null && imgs.size() > 3) {
+        if (imgs != null && imgs.size() >= 3) {
             imgs = imgs.subList(0, 3);
             ImageView img_one = holder.getView(R.id.multi_item_img_img01);
             ImageView img_two = holder.getView(R.id.multi_item_img_img02);
@@ -46,6 +47,7 @@ public class MultiItemDelegate implements ItemViewDelegate<NewsModel> {
             int width1 = JScreenUtils.getScreenWidth(context);
             int width = (width1 - 30) / 3;
             int height = JDensityUtils.dp2px(context, 90);
+            KLog.e("图片路径：" + imgs.get(0));
             Glide.with(holder.getConvertView().getContext()).load(imgs.get(0)).override(width, height).into(img_one);
             Glide.with(holder.getConvertView().getContext()).load(imgs.get(1)).override(width, height).into(img_two);
             Glide.with(holder.getConvertView().getContext()).load(imgs.get(2)).override(width, height).into(img_three);

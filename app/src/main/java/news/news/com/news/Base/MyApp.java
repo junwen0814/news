@@ -4,10 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.socks.library.KLog;
 import com.yuyh.library.imgsel.ImageLoader;
 
+import news.news.com.news.Api.Api;
 import news.news.com.news.Utils.SharedUtils;
 
 /**
@@ -16,7 +19,7 @@ import news.news.com.news.Utils.SharedUtils;
 
 public class MyApp extends Application {
 
-    private static Context context;
+    public static Context context;
 
     private static boolean logined = false;
 
@@ -27,6 +30,15 @@ public class MyApp extends Application {
         super.onCreate();
         context = getApplicationContext();
         SharedUtils.init(getApplicationContext());
+        String ipAddress = SharedUtils.getInstance().getIpAddress();
+        KLog.e("MyApp:" + ipAddress);
+        if (!TextUtils.isEmpty(ipAddress)) {
+            Toast.makeText(MyApp.context, ipAddress, Toast.LENGTH_SHORT).show();
+            Api.IP_ADDRESS = ipAddress;
+        } else {
+            SharedUtils.getInstance().setIpAddress(Api.IP_ADDRESS);
+            Toast.makeText(MyApp.context, Api.IP_ADDRESS, Toast.LENGTH_SHORT).show();
+        }
     }
 
 
