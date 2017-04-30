@@ -63,30 +63,19 @@
             app:layout_centerX="70%"
             app:layout_top="prev.top" />
 
-        <com.daasuu.bl.BubbleLayout
-            android:id="@+id/login_activity_user_flag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:bl_arrowDirection="top"
-            app:bl_arrowHeight="15dp"
-            app:bl_arrowPosition="70dp"
-            app:bl_arrowWidth="20dp"
-            app:bl_strokeColor="@color/white"
-            app:bl_strokeWidth="1dp"
-            app:layout_centerX="50%"
-            app:layout_top="prev.bottom+2%"
-            app:layout_width="80%">
 
-            <EditText
-                android:id="@+id/login_activity_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:drawablePadding="5dp"
-                android:hint="请输入用户名"
-                android:padding="15dp" />
-        </com.daasuu.bl.BubbleLayout>
+        <EditText
+            android:id="@+id/login_activity_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_shage_login_pass"
+            android:drawablePadding="5dp"
+            android:hint="请输入用户名"
+            android:padding="15dp"
+            app:layout_centerX="50%"
+            app:layout_top="prev.bottom+8%"
+            app:layout_width="80%" />
 
         <View
             android:layout_width="match_parent"
@@ -103,7 +92,7 @@
             android:background="@drawable/bg_shage_login_pass"
             android:drawablePadding="5dp"
             android:hint="请输入密码"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:padding="15dp"
             app:layout_centerX="50%"
             app:layout_top="prev.bottom"

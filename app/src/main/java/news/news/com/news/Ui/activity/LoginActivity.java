@@ -9,8 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.daasuu.bl.BubbleLayout;
-import com.junwen.jlibrary.JDensityUtils;
 
 import butterknife.Bind;
 import news.news.com.news.Base.BaseActivity;
@@ -40,8 +38,6 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     @Bind(R.id.login_activity_tv_register)
     TextView loginActivityTvRegister;
 
-    @Bind(R.id.login_activity_user_flag)
-    BubbleLayout loginActivityUserFlag;
 
     @Bind(R.id.login_activity_toolbar)
     Toolbar loginActivityToolbar;
@@ -83,13 +79,11 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
             case R.id.login_activity_tv_login:
                 checkFlag(loginActivityTvLogin);
                 isLogin = true;
-                loginActivityUserFlag.setArrowPosition(JDensityUtils.dp2px(mContext, 70));
                 loginActivityLogin.setText("登录");
                 break;
             case R.id.login_activity_tv_register:
                 checkFlag(loginActivityTvRegister);
                 isLogin = false;
-                loginActivityUserFlag.setArrowPosition(JDensityUtils.dp2px(mContext, 235));
                 loginActivityLogin.setText("注册");
                 break;
         }
