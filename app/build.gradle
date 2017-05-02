@@ -18,7 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        dev {
+            minSdkVersion 16
+        }
+        prod {
+            minSdkVersion 16
+        }
+    }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -47,9 +57,6 @@ dependencies {
     compile 'me.shaohui:bottomdialog:1.1.9'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.alibaba:fastjson:1.2.12'
-    //检测网络请求
-    debugCompile 'com.readystatesoftware.chuck:library:1.0.4'
-    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.0.4'
     //百分比布局
     compile 'com.github.mmin18:flexlayout:1.2.6'
     //Mvp
@@ -69,5 +76,7 @@ dependencies {
     compile 'com.daasuu:BubbleLayout:1.1.1'
     //视频播放
     compile 'fm.jiecao:jiecaovideoplayer:5.5.3'
+    //动态权限
+    compile 'com.mukesh:permissions:1.0.3'
     testCompile 'junit:junit:4.12'
 }

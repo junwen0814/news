@@ -1,5 +1,6 @@
 package news.news.com.news.Ui.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.mukesh.permissions.AppPermissions;
 import com.socks.library.KLog;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -80,7 +82,15 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     private List<Fragment> viewpager_list;
 
     private final int REQUEST_CODE = 0;
+
     private List<ColumnsModel> lists;
+
+
+    private static final String[] ALL_PERMISSIONS = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
 
     @Override
     public int getLayout() {
@@ -91,6 +101,7 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
     public void initView() {
 //        setSupportActionBar(mainActivityToolbar);
         EventBus.getDefault().register(this);
+        initPermission();
         viewpager_list = new ArrayList<>();
         commonNavigator = new CommonNavigator(this);
         mainMagicIndicator.setNavigator(commonNavigator);
@@ -140,6 +151,12 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
                 builder.show();
             }
         });
+    }
+
+    private void initPermission() {
+        AppPermissions runtimePermission = new AppPermissions(MainActivity.this);
+        runtimePermission.requestPermission(ALL_PERMISSIONS,
+                REQUEST_CODE);
     }
 
     /**
@@ -208,7 +225,7 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
             public IPagerTitleView getTitleView(Context context, final int i) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#b5b5b5"));
-                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#3498DB"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor("#009fdf"));
                 colorTransitionPagerTitleView.setText(lists.get(i).getCname());
                 colorTransitionPagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +240,7 @@ public class MainActivity extends BaseActivity implements MainView, LoginView, V
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.parseColor("#3498DB"));
+                indicator.setColors(Color.parseColor("#009fdf"));
                 indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
                 return indicator;
             }

@@ -197,7 +197,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView, 
 //                        .cropSize(1, 1, 200, 200)
 //                        .needCrop(true)
                 // 第一个是否显示相机，默认true
-                .needCamera(false)
+                .needCamera(true)
                 // 最大选择图片数量，默认9
 //                        .maxNum(9)
                 .build();

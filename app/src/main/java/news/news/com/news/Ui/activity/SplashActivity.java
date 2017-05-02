@@ -49,6 +49,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
         });
     }
 
+
+
     @Override
     public void initData() {
 
