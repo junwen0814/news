@@ -146,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="18dp"
+                    android:visibility="gone"
                     app:layout_top="prev.bottom">
 
                     <ImageView
@@ -186,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="18dp"
+                android:visibility="gone"
                 app:layout_top="prev.bottom">
 
                 <ImageView

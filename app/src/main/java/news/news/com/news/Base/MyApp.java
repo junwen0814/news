@@ -4,10 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.yuyh.library.imgsel.ImageLoader;
 
+import news.news.com.news.Api.Api;
 import news.news.com.news.Utils.SharedUtils;
 
 /**
@@ -27,6 +29,12 @@ public class MyApp extends Application {
         super.onCreate();
         context = getApplicationContext();
         SharedUtils.init(getApplicationContext());
+        String ipAddress = SharedUtils.getInstance().getIpAddress();
+        if (!TextUtils.isEmpty(ipAddress)) {
+            Api.IP_ADDRESS = ipAddress;
+        } else {
+            SharedUtils.getInstance().setIpAddress(Api.IP_ADDRESS);
+        }
     }
 
 

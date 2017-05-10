@@ -2,6 +2,7 @@ package news.news.com.news.Api;
 
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,6 +11,7 @@ import com.socks.library.KLog;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import news.news.com.news.Base.MyApp;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -48,6 +50,7 @@ public class Api {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+        Toast.makeText(MyApp.context, "http://" + IP_ADDRESS + ":8088/news/", Toast.LENGTH_SHORT).show();
         KLog.e();
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://" + IP_ADDRESS + ":8088/news/")
